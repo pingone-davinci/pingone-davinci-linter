@@ -1,0 +1,28 @@
+{
+  "name": "pingone-davinci-linter",
+  "version": "0.1.0",
+  "description": "PingOne DaVinci Flow Linter",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pingone-davinci/pingone-davinci-linter.git"
+  },
+  "keywords": [
+    "pingone",
+    "davinci",
+    "flow",
+    "linter"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pingone-davinci/pingone-davinci-linter/issues"
+  },
+  "homepage": "https://github.com/pingone-davinci/pingone-davinci-linter#readme",
+  "dependencies": {
+    "fs-extra": "^11.1.1"
+  }
+}

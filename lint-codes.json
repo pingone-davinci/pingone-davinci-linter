@@ -1,0 +1,69 @@
+{
+  "dv-bp-node-001": {
+    "type": "best-practice",
+    "message": "Missing nodeTitle on node (% - %)",
+    "description": "All nodes should have a title",
+    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+    "recommendation": "A node title should be added"
+  },
+  "dv-bp-node-002": {
+    "type": "best-practice",
+    "message": "Incorrect node color [%] - %",
+    "description": "All success/error JSON nodes should proper colors",
+    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+    "recommendation": "Please use this color: [%]"
+  },
+  "dv-bp-logo-001": {
+    "type": "best-practice",
+    "message": "useCustomCSS not set to true",
+    "description": "In flow settings, useCustomCSS not set to true",
+    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+    "recommendation": "Use recommended CSS settings for Ping developed flows"
+  },
+  "dv-bp-logo-002": {
+    "type": "best-practice",
+    "message": "companyLogo class not included in custom CSS",
+    "description": "In flow settings, companyLogo class not included in custom CSS",
+    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+    "recommendation": "Use recommended CSS settings for Ping developed flows"
+  },
+  "dv-bp-logo-003": {
+    "type": "best-practice",
+    "message": "companyLogo environment variable found",
+    "description": "Found companyLogo environment variable in variables connector, this should be handled in custom CSS settings",
+    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+    "recommendation": "Use recommended CSS settings for Ping developed flows"
+  },
+  "dv-er-node-003": {
+    "type": "syntax",
+    "message": "Connection '%': Name Mismatch (%)",
+    "description": "Connector Name Mismatch",
+    "recommendation": "Perform replace on connector to update to newest connector name"
+  },
+  "dv-er-subflow-001": {
+    "type": "error",
+    "message": "Missing Subflow in (%)",
+    "description": "Subflow names mismatched",
+    "recommendation": "Typically caused by having a flow conductor node, but no subflow selected in its configuration"
+  },
+  "dv-er-subflow-002": {
+    "type": "error",
+    "message": "Circular SubFlow Dependency Found - '%' points back to '%' via subflow",
+    "description": "Circular SubFlow Found",
+    "recommendation": "This can cause export/import errors, it is recommended to return to a parent flow via HTML JSON success/error"
+  },
+  "dv-sc-001": {
+    "type": "security",
+    "recommendation": "Found a potential secret"
+  },
+  "generic-warning": {
+    "type": "warning",
+    "message": "Unknown Warning [%]",
+    "recommendation": "Unknwon Recommendation"
+  },
+  "generic-error": {
+    "type": "error",
+    "message": "Unknown Error [%]",
+    "recommendation": "Unknwon Recommendation"
+  }
+}
