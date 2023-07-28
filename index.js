@@ -13,12 +13,19 @@ class PingOneDaVinciLinter {
     return "0.1.0";
   }
 
-  // get lint codes
+  /**
+   * Gets the lint codes JSON
+   * @returns Array
+   */
   getCodes() {
     return lintCodes;
   }
 
-  // read all rules in rules directory and build array based on the file
+  /**
+   * read all rules in rules directory and build array based on the file
+   * @param {*} path
+   * @returns Array
+   */
   getRules(path = "rules") {
     const files = fs.readdirSync(path, { withFileTypes: true });
     let rules = [];
@@ -32,25 +39,35 @@ class PingOneDaVinciLinter {
   }
 
   // Flow linter
+  /**
+   * Lints a flow passed based on properties
+   *
+   * props may consist of:
+   *   - flow     - DaVinci Flow JSON, as exported from DaVinci
+   *   - rules    - Rules array.  If not passed, then all available rules will be run
+   * @param {*} props
+   * @returns
+   */
   lintFlow(props) {
     let rules = props.rules || this.rules;
-    const targetFlow = props.flow;
+    const flow = props.flow;
+
+    if (!flow) {
+      throw new Error("Flow JSON is required");
+    }
 
     try {
       let ruleResponseArr = [];
       let ruleResponse;
-      // console.log(targetFlow);
-      const flowId = targetFlow.flowId;
-      const flowName = targetFlow.name;
 
-      if (!targetFlow.enabledGraphData) {
-        targetFlow.enabledGraphData = targetFlow.graphData;
+      if (!flow.enabledGraphData) {
+        flow.enabledGraphData = flow.graphData;
       }
 
       // Start building the linter response object for this flowId
       ruleResponse = {
-        flowId,
-        flowName,
+        flowId: flow.flowId,
+        flowName: flow.name,
         pass: true,
         errorCount: 0,
         warningCount: 0,
@@ -70,7 +87,7 @@ class PingOneDaVinciLinter {
           const DVRule = require(`${rulePath}`);
           const dvRule = new DVRule();
 
-          dvRule.runRule({ dvFlow: targetFlow });
+          dvRule.runRule({ dvFlow: flow });
           const response = dvRule.getResults();
 
           // console.log(`DEBUG response = ${ JSON.stringify(response) }`);

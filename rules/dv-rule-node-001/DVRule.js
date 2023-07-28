@@ -1,4 +1,3 @@
-const { default: nodeTest } = require("node:test");
 const LintRule = require("../../LintRule.js")
 
 const backgroundColor = {
