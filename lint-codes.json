@@ -42,9 +42,9 @@
   },
   "dv-er-subflow-001": {
     "type": "error",
-    "message": "Missing Subflow in (%)",
+    "message": "Incorrect Subflow in (%)",
     "description": "Subflow names mismatched",
-    "recommendation": "Typically caused by having a flow conductor node, but no subflow selected in its configuration"
+    "recommendation": "Typically caused by having a flow conductor node, but no subflow selected or name mismatch in its configuration"
   },
   "dv-er-subflow-002": {
     "type": "error",

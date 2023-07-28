@@ -34,7 +34,6 @@ class PingOneDaVinciLinter {
     return rules;
   }
 
-  // Flow linter
   /**
    * Lints a flow passed based on properties
    *
@@ -52,6 +51,15 @@ class PingOneDaVinciLinter {
       throw new Error("Flow JSON is required");
     }
 
+    let flows = [];
+
+    // Check for single-flow
+    if (flow.flowId) {
+      flows.push(flow);
+    } else if (flow.flows) {
+      flows = flow.flows;
+    }
+
     try {
       let ruleResponseArr = [];
       let ruleResponse;
@@ -60,52 +68,59 @@ class PingOneDaVinciLinter {
         flow.enabledGraphData = flow.graphData;
       }
 
-      // Start building the linter response object for this flowId
-      ruleResponse = {
-        flowId: flow.flowId,
-        flowName: flow.name,
-        pass: true,
-        errorCount: 0,
-        warningCount: 0,
-        errors: [],
-        warnings: [],
-        rulesApplied: [],
-        ruleResults: []
-      };
 
-      // Apply lint rules to the target flow
-      for (const rule of rules) {
-        const rulePath = `./rules/${rule}/DVRule.js`;
+      for (const f of flows) {
+        // Start building the linter response object for this flowId
+        ruleResponse = {
+          flowId: f.flowId,
+          flowName: f.name,
+          pass: true,
+          errorCount: 0,
+          warningCount: 0,
+          errors: [],
+          warnings: [],
+          rulesApplied: [],
+          ruleResults: []
+        };
 
-        try {
-          const DVRule = require(`${rulePath}`);
-          const dvRule = new DVRule();
+        // Apply lint rules to the target flow
+        for (const rule of rules) {
+          const rulePath = `./rules/${rule}/DVRule.js`;
 
-          dvRule.runRule({ dvFlow: flow });
-          const response = dvRule.getResults();
+          try {
+            const DVRule = require(`${rulePath}`);
+            const dvRule = new DVRule();
 
-          // console.log(`DEBUG response = ${ JSON.stringify(response) }`);
-          ruleResponse.rulesApplied.push(rule);
-          ruleResponse.errorCount += response.errorCount;
-          ruleResponse.warningCount += response.warningCount;
-          for (const err of response.errors) {
-            ruleResponse.errors.push(err.message);
+            dvRule.runRule({
+              dvFlow: f,
+              dvFlows: flows
+            });
+            const response = dvRule.getResults();
+
+            // console.log(`DEBUG response = ${ JSON.stringify(response) }`);
+            ruleResponse.rulesApplied.push(rule);
+            ruleResponse.errorCount += response.errorCount;
+            ruleResponse.warningCount += response.warningCount;
+            for (const err of response.errors) {
+              ruleResponse.errors.push(err.message);
+            }
+            for (const warning of response.warnings) {
+              ruleResponse.warnings.push(warning.message);
+            }
+            if (response.pass === false) {
+              ruleResponse.pass = false;
+            }
+            ruleResponse.ruleResults.push(response);
+          } catch (err) {
+            console.log(`Rule '${rulePath}' not found in rules directory or error`);
+            console.log(`     ERROR: `, err.message);
           }
-          for (const warning of response.warnings) {
-            ruleResponse.warnings.push(warning.message);
-          }
-          if (response.pass === false) {
-            ruleResponse.pass = false;
-          }
-          ruleResponse.ruleResults.push(response);
-        } catch (err) {
-          console.log(`Rule '${rulePath}' not found in rules directory or error`);
-          console.log(`     ERROR: `, err.message);
+
         }
+        // Add the results from this flowId to the return array
+        ruleResponseArr.push(ruleResponse);
 
       }
-      // Add the results from this flowId to the return array
-      ruleResponseArr.push(ruleResponse);
 
       let lintResponse;
       lintResponse = {
