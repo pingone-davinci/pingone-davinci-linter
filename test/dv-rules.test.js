@@ -3,12 +3,10 @@ const fs = require('fs-extra');
 
 const linter = new DVLinter();
 
-const rule = "dv-rule-node-001";
-
 const rules = linter.getRules();
 
 const testRuleWithJson = function (rule, testJson, expectJson) {
-  test(`Testing ${rule}`, () => {
+  test(`Testing ${rule} with ${testJson}`, () => {
     expect(linter.lintFlow({
       "flow": require(`../rules/${rule}/${testJson}`),
       "rules": [rule]
