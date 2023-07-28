@@ -9,10 +9,6 @@ class PingOneDaVinciLinter {
     this.rules = this.getRules();
   }
 
-  version() {
-    return "0.1.0";
-  }
-
   /**
    * Gets the lint codes JSON
    * @returns Array
@@ -78,11 +74,9 @@ class PingOneDaVinciLinter {
       };
 
       // Apply lint rules to the target flow
-      // Will pass in the summary object because it contains info about all the connections etc, flow JSON for the target flow, and the flow ID
       for (const rule of rules) {
         const rulePath = `./rules/${rule}/DVRule.js`;
 
-        // console.log("Running Rule: ", rule);
         try {
           const DVRule = require(`${rulePath}`);
           const dvRule = new DVRule();
@@ -125,6 +119,4 @@ class PingOneDaVinciLinter {
   }
 }
 
-
 module.exports = PingOneDaVinciLinter
-
