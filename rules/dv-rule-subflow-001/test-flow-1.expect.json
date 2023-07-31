@@ -7,7 +7,7 @@
       "errorCount": 1,
       "warningCount": 0,
       "errors": [
-        "Incorrect Subflow in (6cc59b44515ba46f388c87ef52a00ec9)"
+        "Incorrect or Missing Subflow in (6cc59b44515ba46f388c87ef52a00ec9)"
       ],
       "warnings": [],
       "rulesApplied": [
@@ -23,7 +23,7 @@
           "errors": [
             {
               "code": "dv-er-subflow-001",
-              "message": "Incorrect Subflow in (6cc59b44515ba46f388c87ef52a00ec9)",
+              "message": "Incorrect or Missing Subflow in (6cc59b44515ba46f388c87ef52a00ec9)",
               "type": "error",
               "recommendation": "Typically caused by having a flow conductor node, but no subflow selected or name mismatch in its configuration"
             }

@@ -10,21 +10,10 @@ class DVRule extends LintRule {
     const targetFlow = props.dvFlow;
     const supportingFlows = props.dvFlows;
 
-    // console.log("targetFlow = ", targetFlow);
-    // console.log("supportingFlows = ", supportingFlows);
-    // if (!dvSummary) return;
-
-    // This rule is fairly simple and will just use the summary file, and not dig through the raw flow JSON
-    // const flowDetail = dvSummary.flowsDetail.find(v => v.flowInfo.flowId === flowId);
-
     // Create SubFlow Details
-    console.log("Working on flow ", targetFlow.name)
-    console.log("About to get SubFlows");
     const subflows = getSubFlows(targetFlow, supportingFlows);
-    console.log("subflows = ", subflows);
 
     for (const subflow of subflows) {
-      console.log(`Rule subflowCheck:  Checking subflow ${subflow.flowId} and name ${subflow.name}...`);
       if (!subflow.name) {
         result.addError("dv-er-subflow-001", [subflow.flowId]);
       } else {
@@ -32,9 +21,7 @@ class DVRule extends LintRule {
           this.addError("dv-er-subflow-001", [subflow.flowId]);
         }
         // Check for circular subflow dependencies
-        console.log("===================== isCircularSubflow check ===================")
         if (isCircularSubflow(getSubFlows(subflow.detail, supportingFlows), targetFlow.flowId)) {
-          console.log("Adding circular error")
           this.addError("dv-er-subflow-002", [subflow.name, targetFlow.name]);
         }
       }
@@ -44,7 +31,6 @@ class DVRule extends LintRule {
 
 // Check a child subflow to make sure it doesn't point back to this flow ID
 function isCircularSubflow(subflows, flowId) {
-  // console.log("  Checking for ", flowId, " against ", subflows);
   const flowDetail = subflows.find(v => v.flowId === flowId);
   return flowDetail != undefined;
 }
@@ -63,8 +49,6 @@ function getSubFlows(flow, supportingFlows) {
         node.data.capabilityName == "startSubFlow")
   );
 
-  console.log("FLOW NODES = ", JSON.stringify(flowNodes, null, 2));
-
   if (flowNodes) {
     for (const node of flowNodes) {
       var subFlow = {};
@@ -72,7 +56,6 @@ function getSubFlows(flow, supportingFlows) {
       if (node.data.properties.subFlowId) {
         subFlowId = node.data.properties.subFlowId.value.value;
       }
-      console.log("subFlowId = ", subFlowId);
       if (subFlowId) {
         const label = node.data.properties.subFlowId.value.label;
 

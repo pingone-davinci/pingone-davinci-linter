@@ -8,6 +8,12 @@ class LintRule {
     this.ruleDescription = ruleDescription
   }
 
+  parseFlowJson(json) {
+    // # Determine what this is:
+    // #    {flows:[...]}  ----> bundle of flows (probably from export of main/subflow) ---> Multi-Flow Rule
+    // #    {flowId:    }  ----> single flow                                            ---> Flow Rule
+  }
+
   addWarning(code, messageArgs, recommendationArgs) {
     this.result.addWarning(code, messageArgs || [], recommendationArgs || []);
   }
