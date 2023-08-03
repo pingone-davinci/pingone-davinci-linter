@@ -10,12 +10,16 @@ class DVRule extends LintRule {
     const targetFlow = props.dvFlow;
     const supportingFlows = props.dvFlows;
 
+    if (!supportingFlows) {
+      return;
+    }
+
     // Create SubFlow Details
     const subflows = getSubFlows(targetFlow, supportingFlows);
 
     for (const subflow of subflows) {
       if (!subflow.name) {
-        result.addError("dv-er-subflow-001", [subflow.flowId]);
+        this.addError("dv-er-subflow-001", [subflow.flowId]);
       } else {
         if (subflow.name != subflow.label) {
           this.addError("dv-er-subflow-001", [subflow.flowId]);

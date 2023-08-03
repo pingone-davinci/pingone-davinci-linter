@@ -34,12 +34,6 @@
     "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
     "recommendation": "Use recommended CSS settings for Ping developed flows"
   },
-  "dv-er-node-003": {
-    "type": "syntax",
-    "message": "Connection '%': Name Mismatch (%)",
-    "description": "Connector Name Mismatch",
-    "recommendation": "Perform replace on connector to update to newest connector name"
-  },
   "dv-er-subflow-001": {
     "type": "error",
     "message": "Incorrect or Missing Subflow in (%)",

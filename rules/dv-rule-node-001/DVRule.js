@@ -34,7 +34,6 @@ class DVRule extends LintRule {
         }
       }
     });
-    //************** */
   }
 }
 

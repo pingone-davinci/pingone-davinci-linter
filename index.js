@@ -1,9 +1,12 @@
 
+const Table = require('cli-table');
+const colors = require('colors');
 const lintCodes = require("./lint-codes.json");
 const fs = require("fs-extra");
 
 class PingOneDaVinciLinter {
   rules = [];
+  lintResponse = {};
 
   constructor() {
     this.rules = this.getRules();
@@ -22,7 +25,7 @@ class PingOneDaVinciLinter {
    * @param {*} path
    * @returns Array
    */
-  getRules(path = "rules") {
+  getRules(path = __dirname + "/rules") {
     const files = fs.readdirSync(path, { withFileTypes: true });
     let rules = [];
     files.forEach((f) => {
@@ -61,15 +64,14 @@ class PingOneDaVinciLinter {
     }
 
     try {
-      let ruleResponseArr = [];
+      let lintResults = [];
       let ruleResponse;
 
-      if (!flow.enabledGraphData) {
-        flow.enabledGraphData = flow.graphData;
-      }
-
-
       for (const f of flows) {
+        if (!f.enabledGraphData) {
+          f.enabledGraphData = f.graphData;
+        }
+
         // Start building the linter response object for this flowId
         ruleResponse = {
           flowId: f.flowId,
@@ -93,11 +95,10 @@ class PingOneDaVinciLinter {
 
             dvRule.runRule({
               dvFlow: f,
-              dvFlows: flows
+              dvFlows: flow.flows // If undefined, then singleFlow, else we have multipleFlows
             });
             const response = dvRule.getResults();
 
-            // console.log(`DEBUG response = ${ JSON.stringify(response) }`);
             ruleResponse.rulesApplied.push(rule);
             ruleResponse.errorCount += response.errorCount;
             ruleResponse.warningCount += response.warningCount;
@@ -118,19 +119,72 @@ class PingOneDaVinciLinter {
 
         }
         // Add the results from this flowId to the return array
-        ruleResponseArr.push(ruleResponse);
+        lintResults.push(ruleResponse);
 
       }
 
-      let lintResponse;
-      lintResponse = {
-        lintResults: ruleResponseArr
+      this.lintResponse = {
+        lintResults
       }
-      return lintResponse;
+      return this.lintResponse;
     } catch (err) {
       throw new Error(err);
       // throw new Error(err.message);
     }
+  }
+
+  /**
+   * getTable - get the table results
+   */
+  getTable() {
+    var table = new Table();
+
+    var table = new Table(
+      {
+        head: ["Result", "Flow/Rule", ""],
+        colWidths: [8, 30, 80],
+        colAligns: [],
+        style: {
+          compact: false,  // includes border
+          head: ['bold']
+        }
+      });
+
+    for (const lintResult of this.lintResponse.lintResults) {
+      // console.log(lintResult);
+      for (const ruleResult of lintResult.ruleResults) {
+        table.push(
+          [
+            lintResult.pass ? "PASS".green : "FAIL".red,
+            lintResult.flowName,
+            ""
+          ]
+        );
+
+        for (const e of [...ruleResult.errors]) {
+          table.push(
+            [
+              "FAIL".red,
+              "  " + e.code,
+              e.type + " - " + e.message + "\n" +
+              e.recommendation
+            ]
+          )
+        }
+        for (const e of [...ruleResult.errors, ...ruleResult.warnings]) {
+          table.push(
+            [
+              "WARN".yellow,
+              "  " + e.code,
+              e.type + " - " + e.message + "\n" +
+              e.recommendation
+            ]
+          )
+        }
+      }
+    }
+
+    return table.toString();
   }
 }
 
