@@ -1,0 +1,37 @@
+{
+  "lintResults": [
+    {
+      "flowId": "47360733f8216ad35114e9a787ca83e0",
+      "flowName": "Starter Flow",
+      "pass": true,
+      "errorCount": 0,
+      "warningCount": 1,
+      "errors": [],
+      "warnings": [
+        "Missing nodeTitle on node (13xqy80afe - Http)"
+      ],
+      "rulesApplied": [
+        "dv-rule-node-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-node-001",
+          "ruleDescription": "Ensure nodes have names/titles",
+          "pass": true,
+          "errorCount": 0,
+          "warningCount": 1,
+          "errors": [],
+          "warnings": [
+            {
+              "code": "dv-bp-node-001",
+              "message": "Missing nodeTitle on node (13xqy80afe - Http)",
+              "type": "best-practice",
+              "recommendation": "A node title should be added",
+              "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

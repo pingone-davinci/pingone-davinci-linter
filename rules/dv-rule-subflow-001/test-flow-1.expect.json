@@ -1,0 +1,59 @@
+{
+  "lintResults": [
+    {
+      "flowId": "4822d6c2f9f61d1924909c50fa6959bc",
+      "flowName": "Test - Main Flow",
+      "pass": false,
+      "errorCount": 1,
+      "warningCount": 0,
+      "errors": [
+        "Incorrect or Missing Subflow in (6cc59b44515ba46f388c87ef52a00ec9)"
+      ],
+      "warnings": [],
+      "rulesApplied": [
+        "dv-rule-subflow-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-subflow-001",
+          "ruleDescription": "Checks for subflow name mismatches",
+          "pass": false,
+          "errorCount": 1,
+          "warningCount": 0,
+          "errors": [
+            {
+              "code": "dv-er-subflow-001",
+              "message": "Incorrect or Missing Subflow in (6cc59b44515ba46f388c87ef52a00ec9)",
+              "type": "error",
+              "recommendation": "Typically caused by having a flow conductor node, but no subflow selected or name mismatch in its configuration"
+            }
+          ],
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "flowId": "6cc59b44515ba46f388c87ef52a00ec9",
+      "flowName": "Test - Subflow",
+      "pass": true,
+      "errorCount": 0,
+      "warningCount": 0,
+      "errors": [],
+      "warnings": [],
+      "rulesApplied": [
+        "dv-rule-subflow-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-subflow-001",
+          "ruleDescription": "Checks for subflow name mismatches",
+          "pass": true,
+          "errorCount": 0,
+          "warningCount": 0,
+          "errors": [],
+          "warnings": []
+        }
+      ]
+    }
+  ]
+}
