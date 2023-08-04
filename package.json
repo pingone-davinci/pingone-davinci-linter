@@ -23,9 +23,11 @@
   },
   "homepage": "https://github.com/pingone-davinci/pingone-davinci-linter#readme",
   "dependencies": {
+    "argparse": "^2.0.1",
     "cli-table": "^0.3.11",
     "colors": "^1.4.0",
     "fs-extra": "^11.1.1",
-    "jest": "^29.6.2"
+    "jest": "^29.6.2",
+    "pingone-davinci-linter": "file:./."
   }
 }

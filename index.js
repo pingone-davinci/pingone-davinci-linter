@@ -161,6 +161,16 @@ class PingOneDaVinciLinter {
           ]
         );
 
+        if (!lintResult.pass) {
+          table.push(
+            [
+              "FAIL".red,
+              "  " + ruleResult.ruleId,
+              ""
+            ]
+          )
+        }
+
         for (const e of [...ruleResult.errors]) {
           table.push(
             [
