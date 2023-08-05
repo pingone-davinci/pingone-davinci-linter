@@ -25,5 +25,5 @@ jobs:
           ignore-rule: rule-bp-node-001
       - name: Install Dependencies
         run: npm install
-      - nmae: Run tests
+      - name: Run tests
         run: npm test
