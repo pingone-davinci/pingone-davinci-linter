@@ -2,7 +2,7 @@
   "lintResults": [
     {
       "flowId": "b26646703ba9519ee71d327f8a462a6b",
-      "flowName": "Test - Company Logo tls",
+      "flowName": "Test - Company Logo",
       "pass": true,
       "errorCount": 0,
       "warningCount": 3,
