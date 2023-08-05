@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,6 +24,6 @@ jobs:
           ignore-flow: flowname.json
           ignore-rule: rule-bp-node-001
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
       - name: Run tests
         run: npm test
