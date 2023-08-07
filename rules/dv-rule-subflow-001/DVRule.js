@@ -9,7 +9,7 @@ class DVRule extends LintRule {
   }
 
   runRule() {
-    const targetFlow = this.singleFlow;
+    const targetFlow = this.mainFlow;
     const supportingFlows = this.allFlows;
 
     if (!supportingFlows) {

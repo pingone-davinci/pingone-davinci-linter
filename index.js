@@ -2,11 +2,13 @@
 const Table = require('cli-table');
 const colors = require('colors');
 const lintCodes = require("./lint-codes.json");
+const lintRules = require("./lint-rules.json");
 const fs = require("fs-extra");
+const DaVinciUtil = require('./DaVinciUtil');
 
 class PingOneDaVinciLinter {
   rules = [];
-  singleFlow = {};
+  mainFlow = {};
   allFlows = [];
   lintResponse = {};
 
@@ -23,7 +25,7 @@ class PingOneDaVinciLinter {
     } else if (flow.flows) {
       this.allFlows = flow.flows;
     }
-    this.singleFlow = flow;
+    this.mainFlow = flow;
   }
 
   /**
@@ -32,6 +34,39 @@ class PingOneDaVinciLinter {
    */
   static getCodes() {
     return lintCodes;
+  }
+
+  /**
+   * Get codes table
+   */
+  static getCodesTable() {
+    var table = new Table(
+      {
+        head: ["ID", "Type", "Message", "Description", "Reference", "Recommendation"],
+        colWidths: [20, 15, 40, 20, 20, 20],
+        colAligns: [],
+        style: {
+          compact: false,  // includes border
+          head: ['bold']
+        }
+      });
+
+    for (const id in lintCodes) {
+      const code = lintCodes[id];
+
+      table.push(
+        [
+          id || "",
+          code.type || "",
+          code.message || "",
+          code.description || "",
+          code.reference || "",
+          code.recommendation || "",
+        ]
+      );
+    }
+
+    return table.toString();
   }
 
   /**
@@ -49,6 +84,37 @@ class PingOneDaVinciLinter {
     });
 
     return rules;
+  }
+
+  /**
+   * Get rules table
+   */
+  static getRulesTable() {
+    var table = new Table(
+      {
+        head: ["ID", "Description", "RuleJS", "Tests"],
+        colWidths: [25, 25, 40, 40],
+        colAligns: [],
+        style: {
+          compact: false,  // includes border
+          head: ['bold']
+        }
+      });
+
+    for (const id in lintRules) {
+      const rule = lintRules[id];
+      console.log(rule);
+      table.push(
+        [
+          id || "",
+          rule.description || "",
+          rule.ruleJS || "",
+          rule.tests || ""
+        ]
+      );
+    }
+
+    return table.toString();
   }
 
   /**
@@ -85,14 +151,27 @@ class PingOneDaVinciLinter {
           ruleResults: []
         };
 
+        // Get list of included, excluded, and ignored rules from the flow variable _Flow Linter_
+        const flowLinterOptions = DaVinciUtil.getFlowLinterOptions(f);
+
+        console.log("flowLinterOptions = ", flowLinterOptions);
         // Apply lint rules to the target flow
         for (const rule of rules) {
+          if (flowLinterOptions.includeRules && !flowLinterOptions.includeRules.includes(rule)) {
+            console.log(rule + " is not in the include")
+            continue;
+          }
+          if (flowLinterOptions.excludeRules && flowLinterOptions.excludeRules.includes(rule)) {
+            console.log(rule + " is in the exclude")
+            continue;
+          }
+
           const rulePath = `./rules/${rule}/DVRule.js`;
 
           try {
             const DVRule = require(`${rulePath}`);
             const dvRule = new DVRule({
-              singleFlow: f,
+              mainFlow: f,
               allFlows: this.allFlows
             });
 
@@ -140,8 +219,6 @@ class PingOneDaVinciLinter {
    * getTable - get the table results
    */
   getTable() {
-    var table = new Table();
-
     var table = new Table(
       {
         head: ["Result", "Flow/Rule", ""],
@@ -156,28 +233,26 @@ class PingOneDaVinciLinter {
     for (const lintResult of this.lintResponse.lintResults) {
       table.push(
         [
-          lintResult.pass ? "PASS".green : "FAIL".red,
+          lintResult.errorCount ? "PASS".green : "FAIL".red,
           lintResult.flowName,
           ""
         ]
       );
       for (const ruleResult of lintResult.ruleResults) {
 
-        if (!ruleResult.pass) {
-          table.push(
-            [
-              "FAIL".red,
-              "  " + ruleResult.ruleId,
-              ""
-            ]
-          )
-        }
+        table.push(
+          [
+            ruleResult.pass ? "PASS".green : "FAIL".red,
+            "  " + ruleResult.ruleId,
+            ""
+          ]
+        )
 
         for (const e of [...ruleResult.errors, ...ruleResult.warnings]) {
           table.push(
             [
-              e.type === "error" ? "FAIL".red : "WARN".yellow,
-              "  " + e.code,
+              "", //e.type === "error" ? "FAIL".red : "WARN".yellow,
+              "    " + e.code,
               e.type + " - " + e.message + "\n" +
               e.recommendation
             ]

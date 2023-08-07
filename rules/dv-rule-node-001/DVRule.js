@@ -14,7 +14,7 @@ class DVRule extends LintRule {
 
   //************** */
   runRule() {
-    const dvFlow = this.singleFlow;
+    const dvFlow = this.mainFlow;
 
     dvFlow.enabledGraphData.elements.nodes.forEach((node, index, array) => {
       const data = node.data;

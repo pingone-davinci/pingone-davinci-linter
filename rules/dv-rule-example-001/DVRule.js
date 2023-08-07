@@ -8,7 +8,7 @@ class DVRule extends LintRule {
   }
 
   runRule() {
-    const dvFlow = this.singleFlow;
+    const dvFlow = this.mainFlow;
 
     const someErrorCondition = false;
     const someWarningCondition = false;

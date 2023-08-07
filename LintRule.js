@@ -1,9 +1,10 @@
 
+const DaVinciUtil = require("./DaVinciUtil.js");
 const LintResult = require("./LintResult.js");
 
 class LintRule {
   constructor(props) {
-    this.singleFlow = props.singleFlow;
+    this.mainFlow = props.mainFlow;
     this.allFlows = props.allFlows;
     this.init();
     this.result = new LintResult(this.ruleId, this.ruleDescription);
@@ -17,9 +18,8 @@ class LintRule {
     this.ruleDescription = ruleDescription;
   }
 
-  init(props) {
-    this.singleFlow = props.singleFlow;
-    this.allFlows = props.allFlows;
+  init() {
+    throw Error("Must create init() method in Rule");
   }
 
   addWarning(code, messageArgs, recommendationArgs) {
@@ -34,30 +34,11 @@ class LintRule {
   }
 
   getFlowVariables() {
-    const varNodes = this.getNodes("variablesConnector")
-
-    const flowVariables = [];
-
-    // console.log(varNodes);
-    for (const node of varNodes) {
-      // varNodes.foreach((node) => {
-      for (const flowVar of node?.data?.properties?.saveFlowVariables?.value) {
-        flowVariables.push({
-          name: flowVar.name,
-          ref: `{{global.flow.variables.${flowVar.name}}}`,
-          type: flowVar.type,
-          value: flowVar.value
-        });
-      };
-    }
-
-    return flowVariables;
+    return DaVinciUtil.getFlowVariables(this.mainFlow, "variablesConnector");
   }
 
   getNodes(nodeType) {
-    return this.singleFlow?.enabledGraphData.elements.nodes.filter(
-      (node) => node.data.connectorId === nodeType
-    );
+    return DaVinciUtil.getNodes(this.mainFlow, nodeType);
   }
 
 }

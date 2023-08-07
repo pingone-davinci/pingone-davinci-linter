@@ -1,0 +1,10 @@
+{
+  "dv-rule-example-001": {
+    "description": "Example Rule",
+    "ruleJS": "rules/ExampleRule.js",
+    "tests": [
+      "tests/example-flow1.json",
+      "tests/example-flow2.json"
+    ]
+  }
+}

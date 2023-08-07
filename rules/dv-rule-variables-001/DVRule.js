@@ -9,6 +9,7 @@ class DVRule extends LintRule {
 
   //************** */
   runRule() {
+    this.getNodes(this.mainFlow, "variableConnector");
     const flowVars = new Set(this.getFlowVariables());
     const flowVarRefs = new Set();
 
@@ -18,7 +19,7 @@ class DVRule extends LintRule {
     })
 
     // Search the entire flow for any references to {{global.flow.variables...
-    var stringToTest = JSON.stringify(this.singleFlow);
+    var stringToTest = JSON.stringify(this.mainFlow);
     var regexToTest = /\{\{global\.flow\.variables\..[a-zA-Z0-9]*\}\}/g;
     var usedVarRefs = new Set(stringToTest.match(regexToTest));
 

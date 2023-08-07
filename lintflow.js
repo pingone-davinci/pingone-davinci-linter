@@ -25,6 +25,7 @@ console.log(`
 
 const linter = new DVLinter(require(`./${args.flow}`));
 
+
 const result = linter.lintFlow()
 
 console.log(JSON.stringify(result, null, 2));
