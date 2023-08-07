@@ -1,12 +1,6 @@
 const LintRule = require("../../LintRule.js")
 
-class DVRule extends LintRule {
-
-
-  init() {
-    this.setRuleId("dv-rule-logo-001");
-    this.setRuleDescription("Ensure logos are not hard coded and useCSS is used with a css logo tag")
-  }
+class LogoRule extends LintRule {
 
   runRule() {
     const dvFlow = this.mainFlow;
@@ -36,4 +30,4 @@ class DVRule extends LintRule {
   }
 }
 
-module.exports = DVRule;
+module.exports = LogoRule;

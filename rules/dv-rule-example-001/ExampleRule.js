@@ -1,11 +1,6 @@
 const LintRule = require("../../LintRule.js")
 
-class DVRule extends LintRule {
-
-  init() {
-    this.setRuleId("dv-rule-example-001");
-    this.setRuleDescription("Example Rule")
-  }
+class ExampleRule extends LintRule {
 
   runRule() {
     const dvFlow = this.mainFlow;
@@ -23,4 +18,4 @@ class DVRule extends LintRule {
   }
 }
 
-module.exports = DVRule;
+module.exports = ExampleRule;

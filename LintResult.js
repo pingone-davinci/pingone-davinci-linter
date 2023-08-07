@@ -39,13 +39,15 @@ class LintResult {
   }
 
   addWarning(code, messageArgs, recommendationArgs) {
-    if (lintCodes[code]) {
-      this.warnings.push(this.getMessageObj(code, messageArgs || [], recommendationArgs || []));
-    } else {
-      this.warnings.push(this.getMessageObj("generic-warning", [code], []));
-    }
+    this.addError(code, messageArgs, recommendationArgs);
 
-    this.warningCount++;
+    // if (lintCodes[code]) {
+    //   this.warnings.push(this.getMessageObj(code, messageArgs || [], recommendationArgs || []));
+    // } else {
+    //   this.warnings.push(this.getMessageObj("generic-warning", [code], []));
+    // }
+
+    // this.warningCount++;
   }
 
   addError(code, messageArgs, recommendationArgs) {

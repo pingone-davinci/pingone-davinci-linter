@@ -3,15 +3,15 @@
     {
       "flowId": "b26646703ba9519ee71d327f8a462a6b",
       "flowName": "Test - Company Logo",
-      "pass": true,
-      "errorCount": 0,
-      "warningCount": 3,
-      "errors": [],
-      "warnings": [
+      "pass": false,
+      "errorCount": 3,
+      "warningCount": 0,
+      "errors": [
         "useCustomCSS not set to true",
         "companyLogo class not included in custom CSS",
         "companyLogo environment variable found"
       ],
+      "warnings": [],
       "rulesApplied": [
         "dv-rule-logo-001"
       ],
@@ -19,11 +19,10 @@
         {
           "ruleId": "dv-rule-logo-001",
           "ruleDescription": "Ensure logos are not hard coded and useCSS is used with a css logo tag",
-          "pass": true,
-          "errorCount": 0,
-          "warningCount": 3,
-          "errors": [],
-          "warnings": [
+          "pass": false,
+          "errorCount": 3,
+          "warningCount": 0,
+          "errors": [
             {
               "code": "dv-bp-logo-001",
               "message": "useCustomCSS not set to true",
@@ -45,7 +44,8 @@
               "recommendation": "Use recommended CSS settings for Ping developed flows",
               "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532"
             }
-          ]
+          ],
+          "warnings": []
         }
       ]
     }

@@ -5,14 +5,8 @@ const backgroundColor = {
   httpConnector_createErrorResponse: "#ffc8c1"
 }
 
-class DVRule extends LintRule {
+class NodeRule extends LintRule {
 
-  init() {
-    this.setRuleId("dv-rule-node-001");
-    this.setRuleDescription("Ensure nodes have names/titles")
-  }
-
-  //************** */
   runRule() {
     const dvFlow = this.mainFlow;
 
@@ -38,4 +32,4 @@ class DVRule extends LintRule {
   }
 }
 
-module.exports = DVRule;
+module.exports = NodeRule;

@@ -2,22 +2,28 @@
 class DaVinciUtil {
 
   static getFlowVariables(flow) {
+    const RESERVED_VARS = ['include-rules', 'exclude-rules', 'ignore-rules'];
+
     const varNodes = DaVinciUtil.getNodes(flow, "variablesConnector")
 
     const flowVariables = [];
 
     // console.log(varNodes);
-    for (const node of varNodes) {
+    varNodes?.forEach((node) => {
+      // console.log(node?.data?.properties); //?.saveFlowVariables?.value);
       // varNodes.foreach((node) => {
-      for (const flowVar of node?.data?.properties?.saveFlowVariables?.value) {
-        flowVariables.push({
-          name: flowVar.name,
-          ref: `{{global.flow.variables.${flowVar.name}}}`,
-          type: flowVar.type,
-          value: flowVar.value
-        });
-      };
-    }
+      node?.data?.properties?.saveFlowVariables?.value?.forEach((flowVar) => {
+        // for (const flowVar of node?.data?.properties?.saveFlowVariables?.value) {
+        if (!RESERVED_VARS.includes(flowVar.name)) {
+          flowVariables.push({
+            name: flowVar.name,
+            ref: `{{global.flow.variables.${flowVar.name}}}`,
+            type: flowVar.type,
+            value: flowVar.value
+          });
+        }
+      });
+    });
 
     return flowVariables;
   }

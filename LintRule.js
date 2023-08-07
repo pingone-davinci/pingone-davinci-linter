@@ -6,8 +6,7 @@ class LintRule {
   constructor(props) {
     this.mainFlow = props.mainFlow;
     this.allFlows = props.allFlows;
-    this.init();
-    this.result = new LintResult(this.ruleId, this.ruleDescription);
+    this.result = new LintResult(props.ruleId, props.ruleDescription);
   }
 
   setRuleId(ruleId) {
@@ -16,10 +15,6 @@ class LintRule {
 
   setRuleDescription(ruleDescription) {
     this.ruleDescription = ruleDescription;
-  }
-
-  init() {
-    throw Error("Must create init() method in Rule");
   }
 
   addWarning(code, messageArgs, recommendationArgs) {

@@ -75,6 +75,7 @@ class PingOneDaVinciLinter {
    * @returns Array
    */
   static getRules(path = __dirname + "/rules") {
+    return lintRules;
     const files = fs.readdirSync(path, { withFileTypes: true });
     let rules = [];
     files.forEach((f) => {
@@ -127,7 +128,16 @@ class PingOneDaVinciLinter {
    * @returns
    */
   lintFlow(props = {}) {
-    let rules = props.rules || this.rules;
+    let rules = this.rules;
+    if (props.rules) {
+      const newRules = {};
+      props.rules.forEach((r) => {
+        newRules[r] = this.rules[r];
+      });
+      rules = newRules;
+    } else {
+      rules = this.rules;
+    }
 
     try {
       let lintResults = [];
@@ -154,34 +164,33 @@ class PingOneDaVinciLinter {
         // Get list of included, excluded, and ignored rules from the flow variable _Flow Linter_
         const flowLinterOptions = DaVinciUtil.getFlowLinterOptions(f);
 
-        console.log("flowLinterOptions = ", flowLinterOptions);
         // Apply lint rules to the target flow
-        for (const rule of rules) {
-          if (flowLinterOptions.includeRules && !flowLinterOptions.includeRules.includes(rule)) {
-            console.log(rule + " is not in the include")
+        for (const ruleId in rules) {
+          const rule = rules[ruleId];
+
+          if (flowLinterOptions.includeRules && !flowLinterOptions.includeRules.includes(ruleId)) {
             continue;
           }
-          if (flowLinterOptions.excludeRules && flowLinterOptions.excludeRules.includes(rule)) {
-            console.log(rule + " is in the exclude")
+          if (flowLinterOptions.excludeRules && flowLinterOptions.excludeRules.includes(ruleId)) {
             continue;
           }
 
-          const rulePath = `./rules/${rule}/DVRule.js`;
+          const rulePath = `./${rule.ruleJS}`;
 
           try {
             const DVRule = require(`${rulePath}`);
             const dvRule = new DVRule({
               mainFlow: f,
-              allFlows: this.allFlows
+              allFlows: this.allFlows,
+              ruleId: ruleId,
+              ruleDescription: rule.description
             });
-
-            // dvRule.init()
 
             dvRule.runRule();
 
             const response = dvRule.getResults();
 
-            ruleResponse.rulesApplied.push(rule);
+            ruleResponse.rulesApplied.push(ruleId);
             ruleResponse.errorCount += response.errorCount;
             ruleResponse.warningCount += response.warningCount;
             for (const err of response.errors) {
