@@ -2,13 +2,15 @@
 const LintRule = require("../../LintRule.js")
 
 class DVRule extends LintRule {
-  constructor() {
-    super("dv-rule-subflow-001", "Checks for subflow name mismatches");
+
+  init() {
+    this.setRuleId("dv-rule-subflow-001");
+    this.setRuleDescription("Checks for subflow name mismatches")
   }
 
-  runRule(props) {
-    const targetFlow = props.dvFlow;
-    const supportingFlows = props.dvFlows;
+  runRule() {
+    const targetFlow = this.singleFlow;
+    const supportingFlows = this.allFlows;
 
     if (!supportingFlows) {
       return;

@@ -6,17 +6,31 @@ const fs = require("fs-extra");
 
 class PingOneDaVinciLinter {
   rules = [];
+  singleFlow = {};
+  allFlows = [];
   lintResponse = {};
 
-  constructor() {
-    this.rules = this.getRules();
+  constructor(flow) {
+    this.rules = PingOneDaVinciLinter.getRules();
+
+    if (!flow) {
+      throw new Error("Flow JSON is required");
+    }
+
+    // Check for single-flow
+    if (flow.flowId) {
+      this.allFlows.push(flow);
+    } else if (flow.flows) {
+      this.allFlows = flow.flows;
+    }
+    this.singleFlow = flow;
   }
 
   /**
    * Gets the lint codes JSON
    * @returns Array
    */
-  getCodes() {
+  static getCodes() {
     return lintCodes;
   }
 
@@ -25,7 +39,7 @@ class PingOneDaVinciLinter {
    * @param {*} path
    * @returns Array
    */
-  getRules(path = __dirname + "/rules") {
+  static getRules(path = __dirname + "/rules") {
     const files = fs.readdirSync(path, { withFileTypes: true });
     let rules = [];
     files.forEach((f) => {
@@ -46,28 +60,14 @@ class PingOneDaVinciLinter {
    * @param {*} props
    * @returns
    */
-  lintFlow(props) {
+  lintFlow(props = {}) {
     let rules = props.rules || this.rules;
-    const flow = props.flow;
-
-    if (!flow) {
-      throw new Error("Flow JSON is required");
-    }
-
-    let flows = [];
-
-    // Check for single-flow
-    if (flow.flowId) {
-      flows.push(flow);
-    } else if (flow.flows) {
-      flows = flow.flows;
-    }
 
     try {
       let lintResults = [];
       let ruleResponse;
 
-      for (const f of flows) {
+      for (const f of this.allFlows) {
         if (!f.enabledGraphData) {
           f.enabledGraphData = f.graphData;
         }
@@ -91,12 +91,15 @@ class PingOneDaVinciLinter {
 
           try {
             const DVRule = require(`${rulePath}`);
-            const dvRule = new DVRule();
-
-            dvRule.runRule({
-              dvFlow: f,
-              dvFlows: flow.flows // If undefined, then singleFlow, else we have multipleFlows
+            const dvRule = new DVRule({
+              singleFlow: f,
+              allFlows: this.allFlows
             });
+
+            // dvRule.init()
+
+            dvRule.runRule();
+
             const response = dvRule.getResults();
 
             ruleResponse.rulesApplied.push(rule);
@@ -151,17 +154,16 @@ class PingOneDaVinciLinter {
       });
 
     for (const lintResult of this.lintResponse.lintResults) {
-      // console.log(lintResult);
+      table.push(
+        [
+          lintResult.pass ? "PASS".green : "FAIL".red,
+          lintResult.flowName,
+          ""
+        ]
+      );
       for (const ruleResult of lintResult.ruleResults) {
-        table.push(
-          [
-            lintResult.pass ? "PASS".green : "FAIL".red,
-            lintResult.flowName,
-            ""
-          ]
-        );
 
-        if (!lintResult.pass) {
+        if (!ruleResult.pass) {
           table.push(
             [
               "FAIL".red,
@@ -171,20 +173,10 @@ class PingOneDaVinciLinter {
           )
         }
 
-        for (const e of [...ruleResult.errors]) {
-          table.push(
-            [
-              "FAIL".red,
-              "  " + e.code,
-              e.type + " - " + e.message + "\n" +
-              e.recommendation
-            ]
-          )
-        }
         for (const e of [...ruleResult.errors, ...ruleResult.warnings]) {
           table.push(
             [
-              "WARN".yellow,
+              e.type === "error" ? "FAIL".red : "WARN".yellow,
               "  " + e.code,
               e.type + " - " + e.message + "\n" +
               e.recommendation

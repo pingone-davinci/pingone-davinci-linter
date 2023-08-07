@@ -2,12 +2,14 @@ const LintRule = require("../../LintRule.js")
 
 class DVRule extends LintRule {
 
-  constructor() {
-    super("dv-rule-logo-001", "Ensure logos are not hard coded and useCSS is used with a css logo tag");
+
+  init() {
+    this.setRuleId("dv-rule-logo-001");
+    this.setRuleDescription("Ensure logos are not hard coded and useCSS is used with a css logo tag")
   }
 
-  runRule(props) {
-    const dvFlow = props.dvFlow;
+  runRule() {
+    const dvFlow = this.singleFlow;
     const flowId = dvFlow.flowId;
 
     // console.log('Logo Check Rule');

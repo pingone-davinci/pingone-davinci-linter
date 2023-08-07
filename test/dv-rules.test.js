@@ -1,14 +1,14 @@
 const DVLinter = require('pingone-davinci-linter')
 const fs = require('fs-extra');
 
-const linter = new DVLinter();
 
-const rules = linter.getRules();
+
+const rules = DVLinter.getRules();
 
 const testRuleWithJson = function (rule, testJson, expectJson) {
   test(`Testing ${rule} with ${testJson}`, () => {
+    const linter = new DVLinter(require(`../rules/${rule}/${testJson}`));
     expect(linter.lintFlow({
-      "flow": require(`../rules/${rule}/${testJson}`),
       "rules": [rule]
     })).toEqual(require(`../rules/${rule}/${expectJson}`));
   });

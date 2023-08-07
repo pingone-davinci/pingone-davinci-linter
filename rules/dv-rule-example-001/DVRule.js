@@ -2,12 +2,13 @@ const LintRule = require("../../LintRule.js")
 
 class DVRule extends LintRule {
 
-  constructor() {
-    super("dv-rule-example-001", "Example Rule");
+  init() {
+    this.setRuleId("dv-rule-example-001");
+    this.setRuleDescription("Example Rule")
   }
 
-  runRule(props) {
-    const dvFlow = props.dvFlow;
+  runRule() {
+    const dvFlow = this.singleFlow;
 
     const someErrorCondition = false;
     const someWarningCondition = false;

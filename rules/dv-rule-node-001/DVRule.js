@@ -7,13 +7,14 @@ const backgroundColor = {
 
 class DVRule extends LintRule {
 
-  constructor() {
-    super("dv-rule-node-001", "Ensure nodes have names/titles");
+  init() {
+    this.setRuleId("dv-rule-node-001");
+    this.setRuleDescription("Ensure nodes have names/titles")
   }
 
   //************** */
-  runRule(props) {
-    const dvFlow = props.dvFlow;
+  runRule() {
+    const dvFlow = this.singleFlow;
 
     dvFlow.enabledGraphData.elements.nodes.forEach((node, index, array) => {
       const data = node.data;

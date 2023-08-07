@@ -5,8 +5,6 @@ const DVLinter = require('pingone-davinci-linter')
 const { ArgumentParser } = require('argparse');
 const { version } = require('./package.json');
 
-const linter = new DVLinter();
-
 const parser = new ArgumentParser({
   description: 'lintflow example'
 });
@@ -25,10 +23,9 @@ console.log(`
 --------------------------------
 `);
 
-const result = linter.lintFlow({
-  flow: require(`./${args.flow}`),
-  //rules
-})
+const linter = new DVLinter(require(`./${args.flow}`));
+
+const result = linter.lintFlow()
 
 console.log(JSON.stringify(result, null, 2));
 
