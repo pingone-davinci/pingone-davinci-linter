@@ -16,14 +16,14 @@ class DVRule extends LintRule {
 
     for (const subflow of subflows) {
       if (!subflow.name) {
-        this.addError("dv-er-subflow-001", [subflow.flowId]);
+        this.addError("dv-er-subflow-001", { messageArgs: [subflow.flowId] });
       } else {
         if (subflow.name != subflow.label) {
-          this.addError("dv-er-subflow-001", [subflow.flowId]);
+          this.addError("dv-er-subflow-001", { messageArgs: [subflow.flowId] });
         }
         // Check for circular subflow dependencies
         if (isCircularSubflow(getSubFlows(subflow.detail, supportingFlows), targetFlow.flowId)) {
-          this.addError("dv-er-subflow-002", [subflow.name, targetFlow.name]);
+          this.addError("dv-er-subflow-002", { messageArgs: [subflow.name, targetFlow.name] });
         }
       }
     }

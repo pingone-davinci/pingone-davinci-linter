@@ -17,11 +17,8 @@ class LintRule {
     this.ruleDescription = ruleDescription;
   }
 
-  addWarning(code, messageArgs, recommendationArgs) {
-    this.result.addWarning(code, messageArgs || [], recommendationArgs || []);
-  }
-  addError(code, messageArgs, recommendationArgs) {
-    this.result.addError(code, messageArgs || [], recommendationArgs || []);
+  addError(code, props = {}) {
+    this.result.addError(code, props);
   }
 
   getResults() {

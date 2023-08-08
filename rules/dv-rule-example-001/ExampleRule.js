@@ -6,14 +6,9 @@ class ExampleRule extends LintRule {
     const dvFlow = this.mainFlow;
 
     const someErrorCondition = false;
-    const someWarningCondition = false;
 
     if (someErrorCondition) {
-      this.addError("example-error", [dvFlow.flowId]);
-    }
-
-    if (someWarningCondition) {
-      this.addWarning("example-warning", [dvFlow.flowId]);
+      this.addError("example-error", { messageArgs: [dvFlow.flowId] });
     }
   }
 }

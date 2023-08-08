@@ -42,7 +42,8 @@
               "message": "companyLogo environment variable found",
               "type": "best-practice",
               "recommendation": "Use recommended CSS settings for Ping developed flows",
-              "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532"
+              "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+              "nodeId": "ng2lm3x79j"
             }
           ],
           "warnings": []

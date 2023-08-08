@@ -28,31 +28,23 @@ class LintResult {
    * message and recommendation arguments into the warning and recommendation
    * strings based on the percent (%) character.
    */
-  getMessageObj(code, messageArgs, recommendationArgs) {
-    return {
+  getMessageObj(code, messageArgs, recommendationArgs, nodeId) {
+    const messageObj = {
       code,
       message: sprintf(lintCodes[code]?.message, ...messageArgs),
       type: lintCodes[code]?.type,
       recommendation: sprintf(lintCodes[code]?.recommendation, ...recommendationArgs),
       reference: lintCodes[code]?.reference
     }
+    if (nodeId) {
+      messageObj.nodeId = nodeId;
+    }
+    return messageObj;
   }
 
-  addWarning(code, messageArgs, recommendationArgs) {
-    this.addError(code, messageArgs, recommendationArgs);
-
-    // if (lintCodes[code]) {
-    //   this.warnings.push(this.getMessageObj(code, messageArgs || [], recommendationArgs || []));
-    // } else {
-    //   this.warnings.push(this.getMessageObj("generic-warning", [code], []));
-    // }
-
-    // this.warningCount++;
-  }
-
-  addError(code, messageArgs, recommendationArgs) {
+  addError(code, props = {}) {
     if (lintCodes[code]) {
-      this.errors.push(this.getMessageObj(code, messageArgs || [], recommendationArgs || []));
+      this.errors.push(this.getMessageObj(code, props.messageArgs || [], props.recommendationArgs || [], props.nodeId));
     } else {
       this.errors.push(this.getMessageObj("generic-error", [code], []));
     }

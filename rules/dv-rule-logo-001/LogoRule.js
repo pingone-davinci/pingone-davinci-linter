@@ -9,9 +9,9 @@ class LogoRule extends LintRule {
     // console.log('Logo Check Rule');
     // console.log(JSON.stringify(dvFlow, null, 2));
     // Check for custom CSS enabled
-    dvFlow.settings?.useCustomCSS || this.addWarning("dv-bp-logo-001", [flowId]);
+    dvFlow.settings?.useCustomCSS || this.addError("dv-bp-logo-001", { messageArgs: [flowId] });
     // Check for companyLogo class in custom CSS
-    dvFlow.settings?.css?.includes(".companyLogo") || this.addWarning("dv-bp-logo-002", [flowId]);
+    dvFlow.settings?.css?.includes(".companyLogo") || this.addError("dv-bp-logo-002", { messageArgs: [flowId] });
 
     // Search for companyLogo environment variable
     dvFlow.graphData?.elements?.nodes?.forEach((node, index, array) => {
@@ -22,7 +22,7 @@ class LogoRule extends LintRule {
         data.properties?.saveVariables?.value?.forEach((obj) => {
           // console.log("Checking name " + obj.name);
           if (obj.name === "companyLogo") {
-            this.addWarning("dv-bp-logo-003", [flowId]);
+            this.addError("dv-bp-logo-003", { messageArgs: [flowId], nodeId: data.id });
           }
         });
       }

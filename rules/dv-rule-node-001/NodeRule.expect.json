@@ -26,7 +26,8 @@
               "message": "Missing nodeTitle on node (13xqy80afe - Http)",
               "type": "best-practice",
               "recommendation": "A node title should be added",
-              "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532"
+              "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+              "nodeId": "13xqy80afe"
             }
           ],
           "warnings": []
