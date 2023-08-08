@@ -139,6 +139,12 @@ class PingOneDaVinciLinter {
     }
 
     try {
+      this.lintResponse = {
+        datetime: (new Date()).toString(),
+        pass: true,
+        errorCount: 0
+      };
+
       let lintResults = [];
       let ruleResponse;
 
@@ -196,6 +202,10 @@ class PingOneDaVinciLinter {
               ruleResponse.pass = false;
             }
             ruleResponse.ruleResults.push(response);
+
+            // Aggregate lintResults
+            this.lintResponse.pass = this.lintResponse.pass && response.pass;
+            this.lintResponse.errorCount += response.errorCount;
           } catch (err) {
             console.log(`Rule '${rulePath}' not found in rules directory or error`);
             console.log(`     ERROR: `, err.message);
@@ -207,9 +217,7 @@ class PingOneDaVinciLinter {
 
       }
 
-      this.lintResponse = {
-        lintResults
-      }
+      this.lintResponse.lintResults = lintResults;
       return this.lintResponse;
     } catch (err) {
       throw new Error(err);
