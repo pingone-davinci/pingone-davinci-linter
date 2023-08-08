@@ -1,6 +1,7 @@
 
-const Table = require('cli-table');
-const colors = require('colors');
+const { table } = require('table');
+const { version } = require('./package.json');
+const color = require('colors');
 const lintCodes = require("./lint-codes.json");
 const lintRules = require("./lint-rules.json");
 const fs = require("fs-extra");
@@ -40,33 +41,55 @@ class PingOneDaVinciLinter {
    * Get codes table
    */
   static getCodesTable() {
-    var table = new Table(
-      {
-        head: ["ID", "Type", "Message", "Description", "Reference", "Recommendation"],
-        colWidths: [20, 15, 40, 20, 20, 20],
-        colAligns: [],
-        style: {
-          compact: false,  // includes border
-          head: ['bold']
-        }
-      });
+    const data = [];
+
+    data.push(["ID".bold, "Type".bold, "Description".bold, "Reference".bold, "Message".bold, "Recommendation".bold]);
 
     for (const id in lintCodes) {
       const code = lintCodes[id];
-
-      table.push(
+      data.push(
         [
           id || "",
           code.type || "",
-          code.message || "",
           code.description || "",
           code.reference || "",
+          code.message || "",
           code.recommendation || "",
         ]
       );
     }
 
-    return table.toString();
+    const config = {
+      header: {
+        alignment: 'center',
+        content: `PingOne DaVinci Linter Codes (v${version})`.green.bold
+      },
+      columns: {
+        // 0: { width: 18 },
+        // 1: {
+        //   wrapWord: true,
+        //   width: 15
+        // },
+        2: {
+          wrapWord: true,
+          width: 30
+        },
+        3: {
+          wrapWord: true,
+          width: 30
+        },
+        4: {
+          wrapWord: true,
+          width: 30
+        },
+        5: {
+          wrapWord: true,
+          width: 30
+        }
+      }
+    }
+
+    return table(data, config);
   }
 
   /**
@@ -91,20 +114,13 @@ class PingOneDaVinciLinter {
    * Get rules table
    */
   static getRulesTable() {
-    var table = new Table(
-      {
-        head: ["ID", "Description", "RuleJS", "Tests"],
-        colWidths: [25, 25, 40, 40],
-        colAligns: [],
-        style: {
-          compact: false,  // includes border
-          head: ['bold']
-        }
-      });
+    const data = [];
+
+    data.push(["ID".bold, "Description".bold, "RuleJS".bold, "Tests".bold]);
 
     for (const id in lintRules) {
       const rule = lintRules[id];
-      table.push(
+      data.push(
         [
           id || "",
           rule.description || "",
@@ -114,7 +130,29 @@ class PingOneDaVinciLinter {
       );
     }
 
-    return table.toString();
+    const config = {
+      header: {
+        alignment: 'center',
+        content: `PingOne DaVinci Linter Rules (v${version})`.green.bold
+      },
+      columns: {
+        0: { width: 20 },
+        1: {
+          wrapWord: true,
+          width: 30
+        },
+        2: {
+          wrapWord: true,
+          width: 30
+        },
+        3: {
+          wrapWord: true,
+          width: 30
+        }
+      }
+    }
+
+    return table(data, config);
   }
 
   /**
@@ -229,49 +267,88 @@ class PingOneDaVinciLinter {
    * getTable - get the table results
    */
   getTable() {
-    var table = new Table(
-      {
-        head: ["Result", "Flow/Rule", ""],
-        colWidths: [8, 30, 80],
-        colAligns: [],
-        style: {
-          compact: false,  // includes border
-          head: ['bold']
-        }
-      });
+
+    const data = [];
+    const spanningCells = [];
+    let row = 0;
+
+    data.push(["Result".bold, "Flow/Rule".bold, "".bold]);
+    spanningCells.push({
+      col: 1, row, colSpan: 2
+    })
+    row++;
 
     for (const lintResult of this.lintResponse.lintResults) {
-      table.push(
+      data.push(
         [
-          lintResult.errorCount ? "PASS".green : "FAIL".red,
+          lintResult.pass ? "PASS".green : "FAIL".red,
           lintResult.flowName,
           ""
         ]
       );
+      spanningCells.push({
+        col: 1, row, colSpan: 2
+      })
+      row++;
+
       for (const ruleResult of lintResult.ruleResults) {
 
-        table.push(
+        data.push(
           [
             ruleResult.pass ? "PASS".green : "FAIL".red,
-            "  " + ruleResult.ruleId,
+            "→ " + ruleResult.ruleId,
             ""
           ]
         )
+        spanningCells.push({
+          col: 1, row, colSpan: 2
+        })
+        row++
 
         for (const e of [...ruleResult.errors]) {
-          table.push(
+          data.push(
             [
+              e.code,
               "",
-              "    " + e.code,
-              e.type + " - " + e.message + "\n" +
+              e.type.bold + " - " + e.message + "\n" +
               e.recommendation
             ]
           )
+          spanningCells.push({
+            col: 0, row, colSpan: 2, alignment: 'right'
+          })
+          row++;
         }
       }
     }
 
-    return table.toString();
+    const config = {
+      header: {
+        alignment: 'center',
+        content: `PingOne DaVinci Linting (v${version})`.green.bold + "\n\n" +
+
+          this.lintResponse.datetime
+      },
+      columns: {
+        0: { width: 6, alignment: 'center' },
+        1: {
+          wrapWord: true,
+          width: 20
+        },
+        2: {
+          wrapWord: true,
+          width: 80
+        },
+        3: {
+          wrapWord: true,
+          width: 30
+        }
+      },
+      spanningCells
+    }
+
+    return table(data, config);
+
   }
 }
 
