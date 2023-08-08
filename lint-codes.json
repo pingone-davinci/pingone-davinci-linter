@@ -62,11 +62,6 @@
     "type": "security",
     "recommendation": "Found a potential secret"
   },
-  "generic-warning": {
-    "type": "warning",
-    "message": "Unknown Warning [%]",
-    "recommendation": "Unknwon Recommendation"
-  },
   "generic-error": {
     "type": "error",
     "message": "Unknown Error [%]",

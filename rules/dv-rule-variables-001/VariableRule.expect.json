@@ -5,12 +5,10 @@
       "flowName": "Test - Flag Unused and NotFound Flow Variables",
       "pass": false,
       "errorCount": 2,
-      "warningCount": 0,
       "errors": [
         "Variable '{{global.flow.variables.notFound}}' used, but never defined",
         "Variable '{{global.flow.variables.notUsed}}' found defined but never used"
       ],
-      "warnings": [],
       "rulesApplied": [
         "dv-rule-variables-001"
       ],
@@ -20,7 +18,6 @@
           "ruleDescription": "Ensure that flow variables are used in flow.  And check for flow variables referenced in nodes but not defined",
           "pass": false,
           "errorCount": 2,
-          "warningCount": 0,
           "errors": [
             {
               "code": "dv-er-variable-002",
@@ -34,8 +31,7 @@
               "type": "error",
               "recommendation": "This can lead to variables/data to be included in flows that should be removed.  Possible old secure data."
             }
-          ],
-          "warnings": []
+          ]
         }
       ]
     }

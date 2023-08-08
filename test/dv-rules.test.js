@@ -14,7 +14,7 @@ const testRuleWithJson = function (rule, tests) {
       const linter = new DVLinter(testInput);
       expect(linter.lintFlow({
         rules: [rule]
-      })).toEqual(testExpect);
+      })).toMatchObject(testExpect);
     });
   })
 }

@@ -7,8 +7,7 @@ var sprintf = (str, ...argv) => !argv.length ? str :
 /**
  * LintResult
  *
- * Holds the results from all the rules capture two arrays of warnings
- * and errors.
+ * Holds the results from all the rules captured and errors.
  */
 
 class LintResult {
@@ -18,14 +17,12 @@ class LintResult {
     this.ruleDescription = ruleDescription;
     this.pass = true;
     this.errorCount = 0;
-    this.warningCount = 0;
     this.errors = [];
-    this.warnings = [];
   }
 
   /**
    * Get the Message Object based on the lintCodes table.  Also, substitures
-   * message and recommendation arguments into the warning and recommendation
+   * message and recommendation arguments into the message and recommendation
    * strings based on the percent (%) character.
    */
   getMessageObj(code, messageArgs, recommendationArgs, nodeId) {

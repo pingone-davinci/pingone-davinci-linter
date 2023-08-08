@@ -5,11 +5,9 @@
       "flowName": "TLS Subflow",
       "pass": false,
       "errorCount": 1,
-      "warningCount": 0,
       "errors": [
         "Circular SubFlow Dependency Found - 'TLS Main' points back to 'TLS Subflow' via subflow"
       ],
-      "warnings": [],
       "rulesApplied": [
         "dv-rule-subflow-001"
       ],
@@ -19,7 +17,6 @@
           "ruleDescription": "Checks for subflow name mismatches",
           "pass": false,
           "errorCount": 1,
-          "warningCount": 0,
           "errors": [
             {
               "code": "dv-er-subflow-002",
@@ -27,8 +24,7 @@
               "type": "error",
               "recommendation": "This can cause export/import errors, it is recommended to return to a parent flow via HTML JSON success/error"
             }
-          ],
-          "warnings": []
+          ]
         }
       ]
     },
@@ -37,11 +33,9 @@
       "flowName": "TLS Main",
       "pass": false,
       "errorCount": 1,
-      "warningCount": 0,
       "errors": [
         "Circular SubFlow Dependency Found - 'TLS Subflow' points back to 'TLS Main' via subflow"
       ],
-      "warnings": [],
       "rulesApplied": [
         "dv-rule-subflow-001"
       ],
@@ -51,7 +45,6 @@
           "ruleDescription": "Checks for subflow name mismatches",
           "pass": false,
           "errorCount": 1,
-          "warningCount": 0,
           "errors": [
             {
               "code": "dv-er-subflow-002",
@@ -59,8 +52,7 @@
               "type": "error",
               "recommendation": "This can cause export/import errors, it is recommended to return to a parent flow via HTML JSON success/error"
             }
-          ],
-          "warnings": []
+          ]
         }
       ]
     }

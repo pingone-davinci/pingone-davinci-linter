@@ -104,7 +104,6 @@ class PingOneDaVinciLinter {
 
     for (const id in lintRules) {
       const rule = lintRules[id];
-      console.log(rule);
       table.push(
         [
           id || "",
@@ -154,9 +153,7 @@ class PingOneDaVinciLinter {
           flowName: f.name,
           pass: true,
           errorCount: 0,
-          warningCount: 0,
           errors: [],
-          warnings: [],
           rulesApplied: [],
           ruleResults: []
         };
@@ -192,12 +189,8 @@ class PingOneDaVinciLinter {
 
             ruleResponse.rulesApplied.push(ruleId);
             ruleResponse.errorCount += response.errorCount;
-            ruleResponse.warningCount += response.warningCount;
             for (const err of response.errors) {
               ruleResponse.errors.push(err.message);
-            }
-            for (const warning of response.warnings) {
-              ruleResponse.warnings.push(warning.message);
             }
             if (response.pass === false) {
               ruleResponse.pass = false;
@@ -257,10 +250,10 @@ class PingOneDaVinciLinter {
           ]
         )
 
-        for (const e of [...ruleResult.errors, ...ruleResult.warnings]) {
+        for (const e of [...ruleResult.errors]) {
           table.push(
             [
-              "", //e.type === "error" ? "FAIL".red : "WARN".yellow,
+              "",
               "    " + e.code,
               e.type + " - " + e.message + "\n" +
               e.recommendation

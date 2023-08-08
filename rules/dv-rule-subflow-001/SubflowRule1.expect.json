@@ -5,11 +5,9 @@
       "flowName": "Test - Main Flow",
       "pass": false,
       "errorCount": 1,
-      "warningCount": 0,
       "errors": [
         "Incorrect or Missing Subflow in (6cc59b44515ba46f388c87ef52a00ec9)"
       ],
-      "warnings": [],
       "rulesApplied": [
         "dv-rule-subflow-001"
       ],
@@ -19,7 +17,6 @@
           "ruleDescription": "Checks for subflow name mismatches",
           "pass": false,
           "errorCount": 1,
-          "warningCount": 0,
           "errors": [
             {
               "code": "dv-er-subflow-001",
@@ -27,8 +24,7 @@
               "type": "error",
               "recommendation": "Typically caused by having a flow conductor node, but no subflow selected or name mismatch in its configuration"
             }
-          ],
-          "warnings": []
+          ]
         }
       ]
     },
@@ -37,9 +33,7 @@
       "flowName": "Test - Subflow",
       "pass": true,
       "errorCount": 0,
-      "warningCount": 0,
       "errors": [],
-      "warnings": [],
       "rulesApplied": [
         "dv-rule-subflow-001"
       ],
@@ -49,9 +43,7 @@
           "ruleDescription": "Checks for subflow name mismatches",
           "pass": true,
           "errorCount": 0,
-          "warningCount": 0,
-          "errors": [],
-          "warnings": []
+          "errors": []
         }
       ]
     }
