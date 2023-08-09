@@ -1,10 +1,9 @@
 
 const { table } = require('table');
-const { version } = require('./package.json');
+const { version } = require('./package.json')
 const color = require('colors');
 const lintCodes = require("./lint-codes.json");
 const lintRules = require("./lint-rules.json");
-const fs = require("fs-extra");
 const DaVinciUtil = require('./DaVinciUtil');
 
 class PingOneDaVinciLinter {
@@ -65,11 +64,6 @@ class PingOneDaVinciLinter {
         content: `PingOne DaVinci Linter Codes (v${version})`.green.bold
       },
       columns: {
-        // 0: { width: 18 },
-        // 1: {
-        //   wrapWord: true,
-        //   width: 15
-        // },
         2: {
           wrapWord: true,
           width: 30
@@ -99,15 +93,6 @@ class PingOneDaVinciLinter {
    */
   static getRules(path = __dirname + "/rules") {
     return lintRules;
-    const files = fs.readdirSync(path, { withFileTypes: true });
-    let rules = [];
-    files.forEach((f) => {
-      if (f.isDirectory()) {
-        rules.push(f.name);
-      }
-    });
-
-    return rules;
   }
 
   /**
