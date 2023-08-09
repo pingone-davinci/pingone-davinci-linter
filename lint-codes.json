@@ -48,15 +48,15 @@
   },
   "dv-er-variable-001": {
     "type": "error",
-    "message": "Variable '%' found defined but never used",
+    "message": "Variable '%' found, but never used",
     "description": "Unsused Variable Found",
-    "recommendation": "This can lead to variables/data to be included in flows that should be removed.  Possible old secure data."
+    "recommendation": "This can lead to variables/data to be included in flows that should be removed."
   },
   "dv-er-variable-002": {
     "type": "error",
-    "message": "Variable '%' used, but never defined",
+    "message": "Variable '%' used, but never defined in a Variable connector",
     "description": "Referenced Unknown Variable Found",
-    "recommendation": "This can lead to data that expected causing undesired results in the flow."
+    "recommendation": "This can lead to data that is expected causing undesired results in the flow."
   },
   "dv-sc-001": {
     "type": "security",

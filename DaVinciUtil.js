@@ -4,7 +4,7 @@ class DaVinciUtil {
   static getFlowVariables(flow) {
     const RESERVED_VARS = ['include-rules', 'exclude-rules', 'ignore-rules'];
 
-    const varNodes = DaVinciUtil.getNodesByType(flow, "variablesConnector")
+    const varNodes = DaVinciUtil.getNodesByType(flow, /variablesConnector/)
 
     const flowVariables = [];
 
@@ -30,23 +30,20 @@ class DaVinciUtil {
 
   static getNodesByType(flow, nodeType) {
     return flow?.enabledGraphData.elements.nodes.filter(
-      (node) => node.data.connectorId === nodeType
+      (node) => node.data?.connectorId?.match(nodeType)
     );
   }
 
   static getNodesByName(flow, name) {
     return flow?.enabledGraphData.elements.nodes.filter(
-      (node) => node.data?.properties?.nodeTitle?.value === name
+      (node) => node.data?.properties?.nodeTitle?.value?.match(name)
     );
   }
 
   static parseVariableStringValue(varNode) {
     const allVars = [];
     varNode?.data?.properties?.saveFlowVariables?.value?.forEach((v) => {
-      console.log(v.value)
       const vJSON = JSON.parse(v.value)
-      console.log(vJSON)
-      console.log(vJSON[0].children[0].text)
       const varSet = {
         name: v.name,
         value: vJSON[0].children[0].text
@@ -57,7 +54,7 @@ class DaVinciUtil {
   }
 
   static getFlowLinterOptions(flow) {
-    const flowLinterNodes = DaVinciUtil.getNodesByName(flow, "_Flow Linter_");
+    const flowLinterNodes = DaVinciUtil.getNodesByName(flow, /_flow\s*linter_/i);
 
     const flowLinterOptions = {
       // includeRules: [],
@@ -66,8 +63,6 @@ class DaVinciUtil {
     }
     flowLinterNodes.forEach((n) => {
       const varSet = DaVinciUtil.parseVariableStringValue(n);
-
-      console.log(varSet);
 
       varSet.forEach((v) => {
         if (v.name === "include-rules") {
