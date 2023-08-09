@@ -4,7 +4,7 @@ class DaVinciUtil {
   static getFlowVariables(flow) {
     const RESERVED_VARS = ['include-rules', 'exclude-rules', 'ignore-rules'];
 
-    const varNodes = DaVinciUtil.getNodes(flow, "variablesConnector")
+    const varNodes = DaVinciUtil.getNodesByType(flow, "variablesConnector")
 
     const flowVariables = [];
 
@@ -28,7 +28,7 @@ class DaVinciUtil {
     return flowVariables;
   }
 
-  static getNodes(flow, nodeType) {
+  static getNodesByType(flow, nodeType) {
     return flow?.enabledGraphData.elements.nodes.filter(
       (node) => node.data.connectorId === nodeType
     );

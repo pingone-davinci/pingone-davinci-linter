@@ -29,8 +29,8 @@ class LintRule {
     return DaVinciUtil.getFlowVariables(this.mainFlow, "variablesConnector");
   }
 
-  getNodes(nodeType) {
-    return DaVinciUtil.getNodes(this.mainFlow, nodeType);
+  getNodesByType(nodeType) {
+    return DaVinciUtil.getNodesByType(this.mainFlow, nodeType);
   }
 
 }

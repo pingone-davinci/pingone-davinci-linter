@@ -3,7 +3,7 @@ const LintRule = require("../../LintRule.js")
 class DVRule extends LintRule {
 
   runRule() {
-    this.getNodes(this.mainFlow, "variableConnector");
+    this.getNodesByType(this.mainFlow, "variableConnector");
     const flowVars = new Set(this.getFlowVariables());
     const flowVarRefs = new Set();
 
