@@ -1,6 +1,6 @@
 {
   "name": "pingone-davinci-linter",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "PingOne DaVinci Flow Linter",
   "main": "index.js",
   "scripts": {
