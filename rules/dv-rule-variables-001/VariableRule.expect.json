@@ -1,0 +1,23 @@
+{
+  "pass": false,
+  "errorCount": 2,
+  "lintResults": [
+    {
+      "flowId": "b40ccd54d88cb637ba4c635c6e788c6b",
+      "flowName": "Test - Flag Unused and NotFound Flow Variables",
+      "pass": false,
+      "errorCount": 2,
+      "rulesApplied": [
+        "dv-rule-variables-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-variables-001",
+          "ruleDescription": "Ensure that flow variables are used in flow.  And check for flow variables referenced in nodes but not defined",
+          "pass": false,
+          "errorCount": 2
+        }
+      ]
+    }
+  ]
+}

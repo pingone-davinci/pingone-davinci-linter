@@ -46,14 +46,21 @@
     "description": "Circular SubFlow Found",
     "recommendation": "This can cause export/import errors, it is recommended to return to a parent flow via HTML JSON success/error"
   },
+  "dv-er-variable-001": {
+    "type": "error",
+    "message": "Variable '%' found, but never used",
+    "description": "Unsused Variable Found",
+    "recommendation": "This can lead to variables/data to be included in flows that should be removed."
+  },
+  "dv-er-variable-002": {
+    "type": "error",
+    "message": "Variable '%' used, but never defined in a Variable connector",
+    "description": "Referenced Unknown Variable Found",
+    "recommendation": "This can lead to data that is expected causing undesired results in the flow."
+  },
   "dv-sc-001": {
     "type": "security",
     "recommendation": "Found a potential secret"
-  },
-  "generic-warning": {
-    "type": "warning",
-    "message": "Unknown Warning [%]",
-    "recommendation": "Unknwon Recommendation"
   },
   "generic-error": {
     "type": "error",

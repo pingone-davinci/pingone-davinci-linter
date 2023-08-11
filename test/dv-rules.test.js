@@ -1,27 +1,25 @@
 const DVLinter = require('pingone-davinci-linter')
-const fs = require('fs-extra');
 
-const linter = new DVLinter();
+const rules = DVLinter.getRules();
 
-const rules = linter.getRules();
+const testRuleWithJson = function (rule, tests) {
+  tests?.forEach((t) => {
+    const testInput = require(`../${t}`);
+    const testExpect = require("../" + t.replace('.json', '.expect.json'));
 
-const testRuleWithJson = function (rule, testJson, expectJson) {
-  test(`Testing ${rule} with ${testJson}`, () => {
-    expect(linter.lintFlow({
-      "flow": require(`../rules/${rule}/${testJson}`),
-      "rules": [rule]
-    })).toEqual(require(`../rules/${rule}/${expectJson}`));
-  });
+    test(`Testing ${rule} with ${t}`, () => {
+      const linter = new DVLinter(testInput);
+      expect(linter.lintFlow({
+        rules: [rule]
+      })).toMatchObject(testExpect);
+    });
+  })
 }
 
-rules.forEach((r) => {
-  const files = fs.readdirSync(`rules/${r}`, { withFileTypes: true });
-  files.forEach((f) => {
-    if (f.name.endsWith(".json") && !f.name.endsWith(".expect.json")) {
-      const testJson = f.name;
-      const expectJson = testJson.replace(".json", ".expect.json");
-      testRuleWithJson(r, testJson, expectJson);
-    }
+for (const r in rules) {
+  const rule = rules[r];
+  rule.tests?.forEach((f) => {
+    testRuleWithJson(r, rule.tests);
   })
-});
+}
 

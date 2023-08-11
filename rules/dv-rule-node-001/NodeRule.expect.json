@@ -1,0 +1,20 @@
+{
+  "lintResults": [
+    {
+      "flowId": "47360733f8216ad35114e9a787ca83e0",
+      "flowName": "Starter Flow",
+      "pass": false,
+      "errorCount": 1,
+      "rulesApplied": [
+        "dv-rule-node-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-node-001",
+          "pass": false,
+          "errorCount": 1
+        }
+      ]
+    }
+  ]
+}

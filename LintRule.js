@@ -1,29 +1,38 @@
 
+const DaVinciUtil = require("./DaVinciUtil.js");
 const LintResult = require("./LintResult.js");
 
 class LintRule {
-  constructor(ruleId, ruleDescription) {
-    this.result = new LintResult(ruleId, ruleDescription);
+  constructor(props) {
+    this.mainFlow = props.mainFlow;
+    this.allFlows = props.allFlows;
+    this.result = new LintResult(props.ruleId, props.ruleDescription);
+  }
+
+  setRuleId(ruleId) {
     this.ruleId = ruleId;
-    this.ruleDescription = ruleDescription
   }
 
-  parseFlowJson(json) {
-    // # Determine what this is:
-    // #    {flows:[...]}  ----> bundle of flows (probably from export of main/subflow) ---> Multi-Flow Rule
-    // #    {flowId:    }  ----> single flow                                            ---> Flow Rule
+  setRuleDescription(ruleDescription) {
+    this.ruleDescription = ruleDescription;
   }
 
-  addWarning(code, messageArgs, recommendationArgs) {
-    this.result.addWarning(code, messageArgs || [], recommendationArgs || []);
-  }
-  addError(code, messageArgs, recommendationArgs) {
-    this.result.addError(code, messageArgs || [], recommendationArgs || []);
+  addError(code, props = {}) {
+    this.result.addError(code, props);
   }
 
   getResults() {
     return this.result;
   }
+
+  getFlowVariables() {
+    return DaVinciUtil.getFlowVariables(this.mainFlow, "variablesConnector");
+  }
+
+  getNodesByType(nodeType) {
+    return DaVinciUtil.getNodesByType(this.mainFlow, nodeType);
+  }
+
 }
 
 module.exports = LintRule;

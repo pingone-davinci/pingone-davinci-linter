@@ -1,0 +1,35 @@
+{
+  "dv-rule-example-001": {
+    "description": "Example Rule",
+    "ruleJS": "./rules/dv-rule-example-001/ExampleRule.js"
+  },
+  "dv-rule-logo-001": {
+    "description": "Ensure logos are not hard coded and useCSS is used with a css logo tag",
+    "ruleJS": "./rules/dv-rule-logo-001/LogoRule.js",
+    "tests": [
+      "./rules/dv-rule-logo-001/LogoRule.json"
+    ]
+  },
+  "dv-rule-node-001": {
+    "description": "Ensure nodes have names/titles",
+    "ruleJS": "./rules/dv-rule-node-001/NodeRule.js",
+    "tests": [
+      "./rules/dv-rule-node-001/NodeRule.json"
+    ]
+  },
+  "dv-rule-subflow-001": {
+    "description": "Checks for subflow name mismatches",
+    "ruleJS": "./rules/dv-rule-subflow-001/SubflowRule.js",
+    "tests": [
+      "./rules/dv-rule-subflow-001/SubflowRule1.json",
+      "./rules/dv-rule-subflow-001/SubflowRule2.json"
+    ]
+  },
+  "dv-rule-variables-001": {
+    "description": "Ensure that flow variables are used in flow.  And check for flow variables referenced in nodes but not defined",
+    "ruleJS": "./rules/dv-rule-variables-001/VariableRule.js",
+    "tests": [
+      "./rules/dv-rule-variables-001/VariableRule.json"
+    ]
+  }
+}

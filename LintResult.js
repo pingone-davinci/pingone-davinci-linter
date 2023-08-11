@@ -7,8 +7,7 @@ var sprintf = (str, ...argv) => !argv.length ? str :
 /**
  * LintResult
  *
- * Holds the results from all the rules capture two arrays of warnings
- * and errors.
+ * Holds the results from all the rules captured and errors.
  */
 
 class LintResult {
@@ -18,39 +17,31 @@ class LintResult {
     this.ruleDescription = ruleDescription;
     this.pass = true;
     this.errorCount = 0;
-    this.warningCount = 0;
     this.errors = [];
-    this.warnings = [];
   }
 
   /**
    * Get the Message Object based on the lintCodes table.  Also, substitures
-   * message and recommendation arguments into the warning and recommendation
+   * message and recommendation arguments into the message and recommendation
    * strings based on the percent (%) character.
    */
-  getMessageObj(code, messageArgs, recommendationArgs) {
-    return {
+  getMessageObj(code, messageArgs, recommendationArgs, nodeId) {
+    const messageObj = {
       code,
       message: sprintf(lintCodes[code]?.message, ...messageArgs),
       type: lintCodes[code]?.type,
       recommendation: sprintf(lintCodes[code]?.recommendation, ...recommendationArgs),
       reference: lintCodes[code]?.reference
     }
-  }
-
-  addWarning(code, messageArgs, recommendationArgs) {
-    if (lintCodes[code]) {
-      this.warnings.push(this.getMessageObj(code, messageArgs || [], recommendationArgs || []));
-    } else {
-      this.warnings.push(this.getMessageObj("generic-warning", [code], []));
+    if (nodeId) {
+      messageObj.nodeId = nodeId;
     }
-
-    this.warningCount++;
+    return messageObj;
   }
 
-  addError(code, messageArgs, recommendationArgs) {
+  addError(code, props = {}) {
     if (lintCodes[code]) {
-      this.errors.push(this.getMessageObj(code, messageArgs || [], recommendationArgs || []));
+      this.errors.push(this.getMessageObj(code, props.messageArgs || [], props.recommendationArgs || [], props.nodeId));
     } else {
       this.errors.push(this.getMessageObj("generic-error", [code], []));
     }

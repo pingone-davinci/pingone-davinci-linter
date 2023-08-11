@@ -2,12 +2,12 @@
 
 const PingOneDaVinciLinter = require('pingone-davinci-linter')
 
-const linter = new PingOneDaVinciLinter();
+// const linter = new PingOneDaVinciLinter();
 
 test('get codes', () => {
-  expect(linter.getCodes()).toBeDefined();
+  expect(PingOneDaVinciLinter.getCodes()).toBeDefined();
 });
 
 test('get rules', () => {
-  expect(linter.getRules()).toBeDefined();
+  expect(PingOneDaVinciLinter.getRules()).toBeDefined();
 });
