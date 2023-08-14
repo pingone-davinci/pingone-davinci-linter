@@ -42,7 +42,7 @@ class DaVinciUtil {
 
   static parseVariableStringValue(varNode) {
     const allVars = [];
-    varNode?.data?.properties?.saveFlowVariables?.value?.forEach((v) => {
+    varNode?.data?.properties?.saveVariables?.value?.forEach((v) => {
       const vJSON = JSON.parse(v.value)
       const varSet = {
         name: v.name,
@@ -55,7 +55,6 @@ class DaVinciUtil {
 
   static getFlowLinterOptions(flow) {
     const flowLinterNodes = DaVinciUtil.getNodesByName(flow, /_flow\s*linter_/i);
-
     const flowLinterOptions = {
       // includeRules: [],
       // excludeRules: [],

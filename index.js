@@ -184,7 +184,8 @@ class PingOneDaVinciLinter {
           errorCount: 0,
           errors: [],
           rulesApplied: [],
-          ruleResults: []
+          ruleResults: [],
+          rulesIgnored: [],
         };
 
         // Get list of included, excluded, and ignored rules from the flow variable _Flow Linter_
@@ -217,10 +218,19 @@ class PingOneDaVinciLinter {
             const response = dvRule.getResults();
 
             ruleResponse.rulesApplied.push(ruleId);
-            ruleResponse.errorCount += response.errorCount;
-            for (const err of response.errors) {
-              ruleResponse.errors.push(err.message);
+
+            if (flowLinterOptions.ignoreRules && flowLinterOptions.ignoreRules.includes(ruleId)) {
+              ruleResponse.rulesIgnored.push(ruleId);
+              response.pass = true;
+              response.ruleIgnored = true;
+            } else {
+              ruleResponse.errorCount += response.errorCount;
+
+              for (const err of response.errors) {
+                ruleResponse.errors.push(err.message);
+              }
             }
+
             if (response.pass === false) {
               ruleResponse.pass = false;
             }
@@ -228,7 +238,11 @@ class PingOneDaVinciLinter {
 
             // Aggregate lintResults
             this.lintResponse.pass = this.lintResponse.pass && response.pass;
-            this.lintResponse.errorCount += response.errorCount;
+
+            if (!response.ruleIgnored) {
+              this.lintResponse.rulesIgnored = true;
+              this.lintResponse.errorCount += response.errorCount;
+            }
           } catch (err) {
             console.log(`Rule '${rulePath}' not found in rules directory or error`);
             console.log(`     ERROR: `, err.message);

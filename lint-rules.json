@@ -14,7 +14,8 @@
     "description": "Ensure nodes have names/titles",
     "ruleJS": "./rules/dv-rule-node-001/NodeRule.js",
     "tests": [
-      "./rules/dv-rule-node-001/NodeRule.json"
+      "./rules/dv-rule-node-001/NodeRule.json",
+      "./rules/dv-rule-node-001/IgnoreRules.json"
     ]
   },
   "dv-rule-subflow-001": {
