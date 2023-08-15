@@ -1,5 +1,5 @@
 
-const LintRule = require("../../LintRule.js")
+const LintRule = require("../../lib/LintRule.js")
 
 class DVRule extends LintRule {
 
