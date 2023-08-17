@@ -1,7 +1,7 @@
 {
   "dv-rule-example-001": {
     "description": "Example Rule",
-    "ruleJS": "./../rules/dv-rule-example-001/ExampleRule.js"
+    "ruleJS": "./rules/dv-rule-example-001/ExampleRule.js"
   },
   "dv-rule-logo-001": {
     "description": "Ensure logos are not hard coded and useCSS is used with a css logo tag",

@@ -3,7 +3,7 @@
 
 const DVLinter = require('pingone-davinci-linter')
 const { ArgumentParser } = require('argparse');
-const { version } = require('../package.json');
+const { version } = require('./package.json');
 
 const parser = new ArgumentParser({
   description: 'lintflow example'
@@ -47,6 +47,8 @@ if (args.flow) {
   } else if (args.table) {
     console.log(linter.getTable());
   }
+
+  process.exit(result.pass ? 0 : 1);
 }
 
 if (args.lintCodes) {
