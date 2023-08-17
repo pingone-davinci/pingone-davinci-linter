@@ -17,13 +17,14 @@ parser.add_argument('-f', '--flow', {
 parser.add_argument('-i', '--includeRule', { help: 'specify specific rule to include' });
 // parser.add_argument('-e', '--excludeRule', { help: 'specify specific rule to exclude' });
 parser.add_argument('-j', '--json', { help: 'return json in output', action: "store_true" });
-parser.add_argument('-t', '--table', { help: 'return table in output. DEFAULT', default: true, action: "store_true" });
+parser.add_argument('-t', '--table', { help: 'return table in output. DEFAULT', action: "store_true" });
 parser.add_argument('-c', '--lintCodes', { help: 'print lint codes table', action: "store_true" });
 parser.add_argument('-r', '--lintRules', { help: 'print lint rules table', action: "store_true" });
 
 const args = parser.parse_args();
 
-
+// If json isn't set, then we need to always print the table
+args.table = !args.json;
 
 if (args.flow) {
   if (args.table) {
