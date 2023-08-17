@@ -1,4 +1,4 @@
-const LintRule = require("../../LintRule.js")
+const LintRule = require("../../lib/LintRule.js")
 
 class LogoRule extends LintRule {
 
