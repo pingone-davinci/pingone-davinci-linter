@@ -2,68 +2,68 @@
 'use strict';
 
 const DVLinter = require('pingone-davinci-linter')
-const { ArgumentParser } = require('argparse');
 const { version } = require('./package.json');
+const { Command } = require('commander');
+const program = new Command();
 
-const parser = new ArgumentParser({
-  description: 'lintflow example'
-});
+program
+  .name('dvlint')
+  .description('CLI to PingOne DaVinci Linter')
+  .version(version);
 
-parser.add_argument('-v', '--version', { action: 'version', version });
-parser.add_argument('-f', '--flow', {
-  metavar: 'FLOW',
-  help: 'lint the flow file'
-});
-parser.add_argument('-i', '--includeRule', { help: 'specify specific rule to include' });
-// parser.add_argument('-e', '--excludeRule', { help: 'specify specific rule to exclude' });
-parser.add_argument('-j', '--json', { help: 'return json in output', action: "store_true" });
-parser.add_argument('-t', '--table', { help: 'return table in output. DEFAULT', action: "store_true" });
-parser.add_argument('-c', '--lintCodes', { help: 'print lint codes table', action: "store_true" });
-parser.add_argument('-r', '--lintRules', { help: 'print lint rules table', action: "store_true" });
+program
+  .option('-f, --flow <flow.json>', 'flow.json, as exported from DaVcinci')
+  .option('-i, --includeRule <ruleName>', 'specify specific rule to include')
+  // .option('-e, --includeRule <ruleName>', 'specify specific rule to include')
+  .option('-j, --json', 'return json in output')
+  .option('-t, --table', 'return table in output. (default)')
+  .option('-c, --lintCodes', 'print lint codes table')
+  .option('-r, --lintRules', 'print lint rules table')
+  .parse();
 
-const args = parser.parse_args();
+const options = program.opts();
 
 // If json isn't set, then we need to always print the table
-args.table = !args.json;
+options.table = !options.json;
 
-if (args.flow) {
-  if (args.table) {
+if (options.flow) {
+  if (options.table) {
     console.log(`
   --------------------------------
-   Linting Flow: ${args.flow}
-           Rule: ${args.includeRule || "ALL"}
+   Linting Flow: ${options.flow}
+           Rule: ${options.includeRule || "ALL"}
   --------------------------------
   `);
   }
 
-  const linter = new DVLinter(require(`./${args.flow}`));
+  const linter = new DVLinter(require(`./${options.flow}`));
   const result = linter.lintFlow(
     {
-      rules: args.includeRule ? [args.includeRule] : undefined
+      rules: options.includeRule ? [options.includeRule] : undefined
     }
   )
 
-  if (args.json) {
+  if (options.json) {
     console.log(JSON.stringify(result, null, 2));
-  } else if (args.table) {
+  } else if (options.table) {
     console.log(linter.getTable());
   }
 
   process.exit(result.pass ? 0 : 1);
 }
 
-if (args.lintCodes) {
-  if (args.json) {
+if (options.lintCodes) {
+  if (options.json) {
     console.log(DVLinter.getCodes());
-  } else if (args.table) {
+  } else if (options.table) {
     console.log(DVLinter.getCodesTable());
   }
 }
 
-if (args.lintRules) {
-  if (args.json) {
+if (options.lintRules) {
+  if (options.json) {
     console.log(DVLinter.getRules());
-  } else if (args.table) {
+  } else if (options.table) {
     console.log(DVLinter.getRulesTable());
   }
 }
