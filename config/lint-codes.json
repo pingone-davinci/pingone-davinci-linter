@@ -62,6 +62,24 @@
     "type": "security",
     "recommendation": "Found a potential secret"
   },
+  "dv-er-teleport-001": {
+    "type": "error",
+    "message": "Teleport '%' found, but never used",
+    "description": "Unsused Teleport Found",
+    "recommendation": "Teleport start nodes that are not used should be removed from a flow."
+  },
+  "dv-er-node-001": {
+    "type": "error",
+    "message": "Disabled node % found",
+    "description": "Disabled Node Found",
+    "recommendation": "Remove disabled node from flow."
+  },
+  "dv-er-multi-start-001": {
+    "type": "error",
+    "message": "Node % could be one of multiple start points, or floating",
+    "description": "Multiple start points or floating node(s) found",
+    "recommendation": "Ensure flow has one defined start point, and that no nodes are floating (completely disconnected)"
+  },
   "generic-error": {
     "type": "error",
     "message": "Unknown Error [%]",

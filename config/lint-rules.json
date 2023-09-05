@@ -18,6 +18,13 @@
       "./rules/dv-rule-node-001/IgnoreRules.json"
     ]
   },
+  "dv-rule-node-002": {
+    "description": "Disabled node found",
+    "ruleJS": "./rules/dv-rule-node-002/DisabledNodeRule.js",
+    "tests": [
+      "./rules/dv-rule-node-002/DisabledNodeRule.json"
+    ]
+  },
   "dv-rule-subflow-001": {
     "description": "Checks for subflow name mismatches",
     "ruleJS": "./rules/dv-rule-subflow-001/SubflowRule.js",
@@ -31,6 +38,20 @@
     "ruleJS": "./rules/dv-rule-variables-001/VariableRule.js",
     "tests": [
       "./rules/dv-rule-variables-001/VariableRule.json"
+    ]
+  },
+  "dv-rule-multi-start-001": {
+    "description": "Multiple potential start nodes, or disconnected nodes found",
+    "ruleJS": "./rules/dv-rule-multi-start-001/MultiStartRule.js",
+    "tests": [
+      "./rules/dv-rule-multi-start-001/MultiStartRule.json"
+    ]
+  },
+  "dv-rule-teleport-001": {
+    "description": "Check for unused teleport nodes",
+    "ruleJS": "./rules/dv-rule-teleport-001/TeleportRule.js",
+    "tests": [
+      "./rules/dv-rule-teleport-001/TeleportRule.json"
     ]
   }
 }

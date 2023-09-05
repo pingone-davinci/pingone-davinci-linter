@@ -1,0 +1,34 @@
+{
+  "pass": false,
+  "errorCount": 1,
+  "lintResults": [
+    {
+      "flowId": "bc108596bc400cff38394b5fd9b33f46",
+      "flowName": "Test - Unused Teleport",
+      "pass": false,
+      "errorCount": 1,
+      "errors": [
+        "Teleport 'UNUSED (8ln2qk7de5)' found, but never used"
+      ],
+      "rulesApplied": [
+        "dv-rule-teleport-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-teleport-001",
+          "ruleDescription": "Check for unused teleport nodes",
+          "pass": false,
+          "errorCount": 1,
+          "errors": [
+            {
+              "code": "dv-er-teleport-001",
+              "message": "Teleport 'UNUSED (8ln2qk7de5)' found, but never used",
+              "type": "error",
+              "recommendation": "Teleport start nodes that are not used should be removed from a flow."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
