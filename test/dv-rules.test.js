@@ -10,7 +10,7 @@ const testRuleWithJson = function (rule, tests) {
     test(`Testing ${rule} with ${t}`, () => {
       const linter = new DVLinter(testInput);
       expect(linter.lintFlow({
-        rules: [rule]
+        includeRules: rule
       })).toMatchObject(testExpect);
     });
   })
