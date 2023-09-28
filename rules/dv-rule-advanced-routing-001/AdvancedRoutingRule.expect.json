@@ -1,0 +1,23 @@
+{
+    "pass": false,
+    "errorCount": 1,
+    "lintResults": [
+      {
+        "flowId": "0738c60d3d686f2c010655f21e71a507",
+        "flowName": "dv-rule-advanced-routing-001",
+        "pass": false,
+        "errorCount": 1,
+        "rulesApplied": [
+          "dv-rule-advanced-routing-001"
+        ],
+        "ruleResults": [
+          {
+            "ruleId": "dv-rule-advanced-routing-001",
+            "ruleDescription": "Ensure the flow has advanced routing algorithm turned on",
+            "pass": false,
+            "errorCount": 1
+          }
+        ]
+      }
+    ]
+  }

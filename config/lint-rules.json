@@ -67,5 +67,12 @@
     "tests": [
       "./rules/dv-rule-empty-flow-001/EmptyFlow.json"
     ]
+  },
+  "dv-rule-advanced-routing-001": {
+    "description": "Ensure the flow has advanced routing algorithm turned on",
+    "ruleJS": "./rules/dv-rule-advanced-routing-001/AdvancedRoutingRule.js",
+    "tests": [
+      "./rules/dv-rule-advanced-routing-001/AdvancedRoutingRule.json"
+    ]
   }
 }
