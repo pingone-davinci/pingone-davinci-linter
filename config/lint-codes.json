@@ -58,7 +58,7 @@
     "description": "Referenced Unknown Variable Found",
     "recommendation": "This can lead to data that is expected causing undesired results in the flow."
   },
-  "dv-rule-advanced-routing-on-001": {
+  "dv-rule-advanced-routing-001": {
     "type": "best-practice",
     "message": "Advanced Routing Algorithm is turned off",
     "description": "In flow settings, Advanced Routing Algorithm is currently turned off",
