@@ -1,24 +1,23 @@
 {
-    "pass": false,
-    "errorCount": 1,
-    "lintResults": [
-      {
-        "flowId": "7aa6735caaac1350eb2ef3c200de06eb",
-        "flowName": "dv-rule-debug-off-001",
-        "pass": true,
-        "errorCount": 1,
-        "rulesApplied": [
-          "dv-rule-debug-off-001"
-        ],
-        "ruleResults": [
-          {
-            "ruleId": "dv-rule-debug-off-001",
-            "ruleDescription": "Ensure the flow has debug mode turned off",
-            "pass": true,
-            "errorCount": 1,
-            "errors": []
-          }
-        ]
-      }
-    ]
+  "pass": false,
+  "errorCount": 1,
+  "lintResults": [
+    {
+      "flowId": "7aa6735caaac1350eb2ef3c200de06eb",
+      "flowName": "dv-rule-debug-off-001",
+      "pass": false,
+      "errorCount": 1,
+      "rulesApplied": [
+        "dv-rule-debug-off-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-debug-off-001",
+          "ruleDescription": "Ensure the flow has debug mode turned off",
+          "pass": false,
+          "errorCount": 1
+        }
+      ]
+    }
+  ]
 }
