@@ -80,6 +80,12 @@
     "description": "Multiple start points or floating node(s) found",
     "recommendation": "Ensure flow has one defined start point, and that no nodes are floating (completely disconnected)"
   },
+  "dv-bp-debug-off-001": {
+    "type": "best-practice",
+    "message": "Log level set to Debug",
+    "description": "In flow settings, log level is currently set to Debug",
+    "recommendation": "Change flow log level to Info or None"
+  },
   "generic-error": {
     "type": "error",
     "message": "Unknown Error [%]",

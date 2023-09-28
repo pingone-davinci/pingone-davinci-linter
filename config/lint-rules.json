@@ -53,5 +53,12 @@
     "tests": [
       "./rules/dv-rule-teleport-001/TeleportRule.json"
     ]
+  },
+  "dv-rule-debug-off-001": {
+    "description": "Ensure the flow has debug mode turned off",
+    "ruleJS": "./rules/dv-rule-debug-off-001/DebugOffRule.js",
+    "tests": [
+      "./rules/dv-rule-debug-off-001/DebugOffRule.json"
+    ]
   }
 }
