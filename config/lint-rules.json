@@ -32,5 +32,12 @@
     "tests": [
       "./rules/dv-rule-variables-001/VariableRule.json"
     ]
+  },
+  "dv-rule-advanced-routing-on-001": {
+    "description": "Ensure the flow has advanced routing algorithm turned on",
+    "ruleJS": "./rules/dv-rule-advanced-routing-on-001/AdvancedRoutingOnRule.js",
+    "tests": [
+      "./rules/dv-rule-advanced-routing-on-001/AdvancedRoutingOnRule.json"
+    ]
   }
 }
