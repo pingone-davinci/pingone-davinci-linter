@@ -60,5 +60,12 @@
     "tests": [
       "./rules/dv-rule-debug-off-001/DebugOffRule.json"
     ]
+  },
+  "dv-er-empty-flow-001": {
+    "description": "Ensure the flow is not empty",
+    "ruleJS": "./rules/dv-rule-empty-flow-001/EmptyFlowRule.js",
+    "tests": [
+      "./rules/dv-rule-empty-flow-001/Emptyflow.json"
+    ]
   }
 }

@@ -86,6 +86,12 @@
     "description": "In flow settings, log level is currently set to Debug",
     "recommendation": "Change flow log level to Info or None"
   },
+  "dv-er-empty-flow-001": {
+    "type": "error",
+    "message": "Flow is empty",
+    "description": "The flow has no nodes, it is empty",
+    "recommendation": "Remove the flow if not in use"
+  },
   "generic-error": {
     "type": "error",
     "message": "Unknown Error [%]",
