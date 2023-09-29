@@ -13,7 +13,7 @@
       "ruleResults": [
         {
           "ruleId": "dv-rule-logo-001",
-          "ruleDescription": "Ensure logos are not hard coded and useCSS is used with a css logo tag",
+          "ruleDescription": "Ensure logos are not hard coded and useCSS is used with a css logo tag.  Does not apply to subflows",
           "pass": false,
           "errorCount": 3
         }
