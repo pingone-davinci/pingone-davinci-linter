@@ -1,25 +1,35 @@
 #!/usr/bin/env node
-'use strict';
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-const DVLinter = require('pingone-davinci-linter')
-const { version } = require('./package.json');
-const { Command } = require('commander');
+const DVLinter = require("pingone-davinci-linter");
+const { Command } = require("commander");
+const { version } = require("./package.json");
+
 const program = new Command();
 
 program
-  .name('dvlint')
-  .description('CLI to PingOne DaVinci Linter')
+  .name("dvlint")
+  .description("CLI to PingOne DaVinci Linter")
   .version(version);
 
 program
-  .option('-f, --flow <flow.json>', 'flow.json, as exported from DaVcinci')
-  .option('-i, --includeRule <ruleName>', 'specify specific rule(s) to include - comma separated list')
-  .option('-e, --excludeRule <ruleName>', 'specify specific rule(s) to exclude - comma separated list')
-  .option('-g, --ignoreRule <ruleName>', 'specify specific rule(s) to ignore - comma separated list')
-  .option('-j, --json', 'return json in output')
-  .option('-t, --table', 'return table in output. (default)')
-  .option('-c, --lintCodes', 'print lint codes table')
-  .option('-r, --lintRules', 'print lint rules table')
+  .option("-f, --flow <flow.json>", "flow.json, as exported from DaVcinci")
+  .option(
+    "-i, --includeRule <ruleName>",
+    "specify specific rule(s) to include - comma separated list"
+  )
+  .option(
+    "-e, --excludeRule <ruleName>",
+    "specify specific rule(s) to exclude - comma separated list"
+  )
+  .option(
+    "-g, --ignoreRule <ruleName>",
+    "specify specific rule(s) to ignore - comma separated list"
+  )
+  .option("-j, --json", "return json in output")
+  .option("-t, --table", "return table in output. (default)")
+  .option("-c, --lintCodes", "print lint codes table")
+  .option("-r, --lintRules", "print lint rules table")
   .parse();
 
 const options = program.opts();
@@ -39,15 +49,14 @@ if (options.flow) {
   `);
   }
 
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   const linter = new DVLinter(require(`./${options.flow}`));
-  
-  const result = linter.lintFlow(
-    {
-      includeRules: options.includeRule ? options.includeRule : undefined,
-      excludeRules: options.excludeRule ? options.excludeRule : undefined,
-      ignoreRules: options.ignoreRule ? options.ignoreRule : undefined
-    }
-  )
+
+  const result = linter.lintFlow({
+    includeRules: options.includeRule ? options.includeRule : undefined,
+    excludeRules: options.excludeRule ? options.excludeRule : undefined,
+    ignoreRules: options.ignoreRule ? options.ignoreRule : undefined,
+  });
 
   if (options.json) {
     console.log(JSON.stringify(result, null, 2));
