@@ -1,11 +1,15 @@
-const LintRule = require("../../lib/LintRule.js");
+const LintRule = require("../../lib/LintRule");
 
 class EmptyFlow extends LintRule {
   runRule() {
-    const dvFlow = this.mainFlow;
+    try {
+      const dvFlow = this.mainFlow;
 
-    if (Object.keys(dvFlow.enabledGraphData.elements).length === 0) {
-      this.addError("dv-er-empty-flow-001");
+      if (Object.keys(dvFlow.enabledGraphData.elements).length === 0) {
+        this.addError("dv-er-empty-flow-001");
+      }
+    } catch (err) {
+      this.addError("generic-error", { messageArgs: [`${err}`] });
     }
   }
 }

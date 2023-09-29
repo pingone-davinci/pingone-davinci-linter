@@ -1,15 +1,16 @@
-const LintRule = require("../../lib/LintRule.js")
+const LintRule = require("../../lib/LintRule");
 
 class AdvancedRoutingRule extends LintRule {
-
   runRule() {
-    const dvFlow = this.mainFlow;
-
-    // console.log(dvFlow.settings?.useBetaAlgorithm);
-
-    /* Checks the flow settings to determine if advanced routing is on (useBetaAlgorithm === true) or off (useBetaAlgorithm === false) */
-    dvFlow.settings?.useBetaAlgorithm == true || this.addError("dv-rule-advanced-routing-001");
-
+    try {
+      const dvFlow = this.mainFlow;
+      /* Checks the flow settings to determine if advanced routing is on (useBetaAlgorithm === true) or off (useBetaAlgorithm === false) */
+      if (!dvFlow.settings?.useBetaAlgorithm === true) {
+        this.addError("dv-rule-advanced-routing-001");
+      }
+    } catch (err) {
+      this.addError("generic-error", { messageArgs: [`${err}`] });
+    }
   }
 }
 

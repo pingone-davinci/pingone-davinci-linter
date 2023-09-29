@@ -100,7 +100,8 @@
   },
   "generic-error": {
     "type": "error",
-    "message": "Unknown Error [%]",
-    "recommendation": "Unknwon Recommendation"
+    "message": "Unknown Error: [%]",
+    "description": "An unknown error has occurred running the rule.  Please report this error to Solution Innovations team.",
+    "recommendation": "Exclude or ignore this rule for the flow."
   }
 }
