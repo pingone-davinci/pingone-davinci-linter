@@ -4,7 +4,7 @@
     "ruleJS": "./rules/dv-rule-example-001/ExampleRule.js"
   },
   "dv-rule-logo-001": {
-    "description": "Ensure logos are not hard coded and useCSS is used with a css logo tag",
+    "description": "Ensure logos are not hard coded and useCSS is used with a css logo tag.  Does not apply to subflows",
     "ruleJS": "./rules/dv-rule-logo-001/LogoRule.js",
     "tests": [
       "./rules/dv-rule-logo-001/LogoRule.json"
@@ -16,6 +16,13 @@
     "tests": [
       "./rules/dv-rule-node-001/NodeRule.json",
       "./rules/dv-rule-node-001/IgnoreRules.json"
+    ]
+  },
+  "dv-rule-node-002": {
+    "description": "Disabled node found",
+    "ruleJS": "./rules/dv-rule-node-002/DisabledNodeRule.js",
+    "tests": [
+      "./rules/dv-rule-node-002/DisabledNodeRule.json"
     ]
   },
   "dv-rule-subflow-001": {
@@ -31,6 +38,41 @@
     "ruleJS": "./rules/dv-rule-variables-001/VariableRule.js",
     "tests": [
       "./rules/dv-rule-variables-001/VariableRule.json"
+    ]
+  },
+  "dv-rule-multi-start-001": {
+    "description": "Multiple potential start nodes, or disconnected nodes found",
+    "ruleJS": "./rules/dv-rule-multi-start-001/MultiStartRule.js",
+    "tests": [
+      "./rules/dv-rule-multi-start-001/MultiStartRule.json"
+    ]
+  },
+  "dv-rule-teleport-001": {
+    "description": "Check for unused teleport nodes",
+    "ruleJS": "./rules/dv-rule-teleport-001/TeleportRule.js",
+    "tests": [
+      "./rules/dv-rule-teleport-001/TeleportRule.json"
+    ]
+  },
+  "dv-rule-debug-off-001": {
+    "description": "Ensure the flow has debug mode turned off",
+    "ruleJS": "./rules/dv-rule-debug-off-001/DebugOffRule.js",
+    "tests": [
+      "./rules/dv-rule-debug-off-001/DebugOffRule.json"
+    ]
+  },
+  "dv-er-empty-flow-001": {
+    "description": "Ensure the flow is not empty",
+    "ruleJS": "./rules/dv-rule-empty-flow-001/EmptyFlowRule.js",
+    "tests": [
+      "./rules/dv-rule-empty-flow-001/EmptyFlow.json"
+    ]
+  },
+  "dv-rule-advanced-routing-001": {
+    "description": "Ensure the flow has advanced routing algorithm turned on",
+    "ruleJS": "./rules/dv-rule-advanced-routing-001/AdvancedRoutingRule.js",
+    "tests": [
+      "./rules/dv-rule-advanced-routing-001/AdvancedRoutingRule.json"
     ]
   }
 }

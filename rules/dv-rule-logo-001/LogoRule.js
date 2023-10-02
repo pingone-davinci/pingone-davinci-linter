@@ -1,32 +1,42 @@
-const LintRule = require("../../lib/LintRule.js")
+const LintRule = require("../../lib/LintRule");
+const DVUtils = require("../../lib/DaVinciUtil");
 
 class LogoRule extends LintRule {
-
   runRule() {
-    const dvFlow = this.mainFlow;
-    const flowId = dvFlow.flowId;
+    try {
+      const dvFlow = this.mainFlow;
+      const { allFlows } = this;
 
-    // console.log('Logo Check Rule');
-    // console.log(JSON.stringify(dvFlow, null, 2));
-    // Check for custom CSS enabled
-    dvFlow.settings?.useCustomCSS || this.addError("dv-bp-logo-001", { messageArgs: [flowId] });
-    // Check for companyLogo class in custom CSS
-    dvFlow.settings?.css?.includes(".companyLogo") || this.addError("dv-bp-logo-002", { messageArgs: [flowId] });
-
-    // Search for companyLogo environment variable
-    dvFlow.graphData?.elements?.nodes?.forEach((node, index, array) => {
-      const data = node.data;
-
-      if (data.connectorId === "variablesConnector") {
-        // console.log("Found variables connector");
-        data.properties?.saveVariables?.value?.forEach((obj) => {
-          // console.log("Checking name " + obj.name);
-          if (obj.name === "companyLogo") {
-            this.addError("dv-bp-logo-003", { messageArgs: [flowId], nodeId: data.id });
-          }
-        });
+      // Ignore this rule in subflows, CSS should be applied at the main flow level
+      if (DVUtils.getAllSubFlows(allFlows).includes(dvFlow.flowId)) {
+        return;
       }
-    });
+      // Check for custom CSS enabled
+      if (!dvFlow.settings?.useCustomCSS) {
+        this.addError("dv-bp-logo-001");
+      }
+      // Check for companyLogo class in custom CSS
+      if (!dvFlow.settings?.css?.includes(".companyLogo")) {
+        this.addError("dv-bp-logo-002");
+      }
+
+      // Search for companyLogo environment variable
+      dvFlow.graphData?.elements?.nodes?.forEach((node) => {
+        const { data } = node;
+
+        if (data.connectorId === "variablesConnector") {
+          data.properties?.saveVariables?.value?.forEach((obj) => {
+            if (obj.name === "companyLogo") {
+              this.addError("dv-bp-logo-003", {
+                nodeId: data.id,
+              });
+            }
+          });
+        }
+      });
+    } catch (err) {
+      this.addError("generic-error", { messageArgs: [`${err}`] });
+    }
   }
 }
 

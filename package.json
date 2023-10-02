@@ -1,9 +1,11 @@
 {
   "name": "pingone-davinci-linter",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "PingOne DaVinci Flow Linter",
   "main": "lib/PingOneDaVinciLinter.js",
-  "bin": "./dvlint",
+  "bin": {
+    "dvlint": "./dvlint"
+  },
   "files": [
     "bin",
     "lib",
@@ -44,6 +46,7 @@
   "dependencies": {
     "argparse": "^2.0.1",
     "colors": "^1.4.0",
+    "commander": "^11.0.0",
     "pingone-davinci-linter": "file:",
     "table": "^6.8.1"
   }

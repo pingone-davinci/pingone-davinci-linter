@@ -62,9 +62,46 @@
     "type": "security",
     "recommendation": "Found a potential secret"
   },
+  "dv-er-teleport-001": {
+    "type": "error",
+    "message": "Teleport '%' found, but never used",
+    "description": "Unsused Teleport Found",
+    "recommendation": "Teleport start nodes that are not used should be removed from a flow."
+  },
+  "dv-er-node-001": {
+    "type": "error",
+    "message": "Disabled node % found",
+    "description": "Disabled Node Found",
+    "recommendation": "Remove disabled node from flow."
+  },
+  "dv-er-multi-start-001": {
+    "type": "error",
+    "message": "Node % could be one of multiple start points, or floating",
+    "description": "Multiple start points or floating node(s) found",
+    "recommendation": "Ensure flow has one defined start point, and that no nodes are floating (completely disconnected)"
+  },
+  "dv-bp-debug-off-001": {
+    "type": "best-practice",
+    "message": "Log level set to Debug",
+    "description": "In flow settings, log level is currently set to Debug",
+    "recommendation": "Change flow log level to Info or None"
+  },
+  "dv-er-empty-flow-001": {
+    "type": "error",
+    "message": "Flow is empty",
+    "description": "The flow has no nodes, it is empty",
+    "recommendation": "Remove the flow if not in use"
+  },
+  "dv-rule-advanced-routing-001": {
+    "type": "best-practice",
+    "message": "Advanced Routing Algorithm is turned off",
+    "description": "In flow settings, Advanced Routing Algorithm is currently turned off",
+    "recommendation": "Turn the Advanced Routing Algorithm on."
+  },
   "generic-error": {
     "type": "error",
-    "message": "Unknown Error [%]",
-    "recommendation": "Unknwon Recommendation"
+    "message": "Unknown Error: [%]",
+    "description": "An unknown error has occurred running the rule.  Please report this error to Solution Innovations team.",
+    "recommendation": "Exclude or ignore this rule for the flow."
   }
 }

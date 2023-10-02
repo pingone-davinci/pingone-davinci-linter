@@ -1,69 +1,84 @@
 #!/usr/bin/env node
-'use strict';
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-const DVLinter = require('pingone-davinci-linter')
-const { ArgumentParser } = require('argparse');
-const { version } = require('./package.json');
+const DVLinter = require("pingone-davinci-linter");
+const { Command } = require("commander");
+const { version } = require("./package.json");
 
-const parser = new ArgumentParser({
-  description: 'lintflow example'
-});
+const program = new Command();
 
-parser.add_argument('-v', '--version', { action: 'version', version });
-parser.add_argument('-f', '--flow', {
-  metavar: 'FLOW',
-  help: 'lint the flow file'
-});
-parser.add_argument('-i', '--includeRule', { help: 'specify specific rule to include' });
-// parser.add_argument('-e', '--excludeRule', { help: 'specify specific rule to exclude' });
-parser.add_argument('-j', '--json', { help: 'return json in output', action: "store_true" });
-parser.add_argument('-t', '--table', { help: 'return table in output. DEFAULT', action: "store_true" });
-parser.add_argument('-c', '--lintCodes', { help: 'print lint codes table', action: "store_true" });
-parser.add_argument('-r', '--lintRules', { help: 'print lint rules table', action: "store_true" });
+program
+  .name("dvlint")
+  .description("CLI to PingOne DaVinci Linter")
+  .version(version);
 
-const args = parser.parse_args();
+program
+  .option("-f, --flow <flow.json>", "flow.json, as exported from DaVcinci")
+  .option(
+    "-i, --includeRule <ruleName>",
+    "specify specific rule(s) to include - comma separated list"
+  )
+  .option(
+    "-e, --excludeRule <ruleName>",
+    "specify specific rule(s) to exclude - comma separated list"
+  )
+  .option(
+    "-g, --ignoreRule <ruleName>",
+    "specify specific rule(s) to ignore - comma separated list"
+  )
+  .option("-j, --json", "return json in output")
+  .option("-t, --table", "return table in output. (default)")
+  .option("-c, --lintCodes", "print lint codes table")
+  .option("-r, --lintRules", "print lint rules table")
+  .parse();
+
+const options = program.opts();
 
 // If json isn't set, then we need to always print the table
-args.table = !args.json;
+options.table = !options.json;
 
-if (args.flow) {
-  if (args.table) {
+if (options.flow) {
+  if (options.table) {
     console.log(`
   --------------------------------
-   Linting Flow: ${args.flow}
-           Rule: ${args.includeRule || "ALL"}
+   Linting Flow: ${options.flow}
+           Rules: ${options.includeRule || "ALL"}
+           Exclude: ${options.excludeRule || "NONE"}
+           Ignore: ${options.ignoreRule || "NONE"}
   --------------------------------
   `);
   }
 
-  const linter = new DVLinter(require(`./${args.flow}`));
-  const result = linter.lintFlow(
-    {
-      rules: args.includeRule ? [args.includeRule] : undefined
-    }
-  )
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  const linter = new DVLinter(require(`./${options.flow}`));
 
-  if (args.json) {
+  const result = linter.lintFlow({
+    includeRules: options.includeRule ? options.includeRule : undefined,
+    excludeRules: options.excludeRule ? options.excludeRule : undefined,
+    ignoreRules: options.ignoreRule ? options.ignoreRule : undefined,
+  });
+
+  if (options.json) {
     console.log(JSON.stringify(result, null, 2));
-  } else if (args.table) {
+  } else if (options.table) {
     console.log(linter.getTable());
   }
 
   process.exit(result.pass ? 0 : 1);
 }
 
-if (args.lintCodes) {
-  if (args.json) {
+if (options.lintCodes) {
+  if (options.json) {
     console.log(DVLinter.getCodes());
-  } else if (args.table) {
+  } else if (options.table) {
     console.log(DVLinter.getCodesTable());
   }
 }
 
-if (args.lintRules) {
-  if (args.json) {
+if (options.lintRules) {
+  if (options.json) {
     console.log(DVLinter.getRules());
-  } else if (args.table) {
+  } else if (options.table) {
     console.log(DVLinter.getRulesTable());
   }
 }
