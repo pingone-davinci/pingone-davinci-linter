@@ -34,20 +34,6 @@
     "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
     "recommendation": "Use recommended CSS settings for Ping developed flows"
   },
-  "dv-bp-annotation-001": {
-    "type": "best-practice",
-    "message": "Annotation color is not in palette (%)",
-    "description": "Found color not included in best practices list",
-    "reference": "https://library.pingidentity.com/page/davinci-color-palette",
-    "recommendation": "Use recommended CSS settings for Ping developed flows (%)"
-  },
-  "dv-bp-annotation-002": {
-    "type": "best-practice",
-    "message": "Annotation font is not in sans-serif (%)",
-    "description": "Found non-standard fontFamily used for Annotation",
-    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
-    "recommendation": "Use sans-serif fontFamily for Annotations"
-  },
   "dv-er-subflow-001": {
     "type": "error",
     "message": "Incorrect or Missing Subflow in (%)",
@@ -117,5 +103,38 @@
     "message": "Unknown Error: [%]",
     "description": "An unknown error has occurred running the rule.  Please report this error to Solution Innovations team.",
     "recommendation": "Exclude or ignore this rule for the flow."
+  },
+  "dv-bp-annotation-001": {
+    "type": "best-practice",
+    "message": "Annotation color is not in palette [%] (%)",
+    "description": "Found color not included in best practices list",
+    "reference": "https://library.pingidentity.com/page/davinci-color-palette",
+    "recommendation": "Use recommended CSS settings for Ping developed flows (%)"
+  },
+  "dv-bp-annotation-002": {
+    "type": "best-practice",
+    "message": "Annotation font is not in sans-serif [%] (%)",
+    "description": "Found non-standard fontFamily used for Annotation",
+    "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
+    "recommendation": "Use sans-serif fontFamily for Annotations"
+  },
+  "dv-bp-annotation-003": {
+    "type": "best-practice",
+    "message": "Flow contains no annotations",
+    "description": "It is a best practice to include annotations to document your flow",
+    "recommendation": "Add annotations to flow"
+  },
+  "dv-bp-missing-title-annotation-001": {
+    "type": "best-practice",
+    "message": "Each flow should contain a title annotation node with a background color of #4462ed",
+    "description": "Title annotation node not found",
+    "reference": "https://library.pingidentity.com/page/flow-title-annotation",
+    "recommendation": "Add a title annotation node (%)"
+  },
+  "dv-bp-title-not-on-top-001": {
+    "type": "best-practice",
+    "message": "The topmost node in your flow should be a title annotation (%)",
+    "description": "Title annotation not on top of flow",
+    "recommendation": "Position title annotation at top of the flow"
   }
 }

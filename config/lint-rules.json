@@ -47,20 +47,6 @@
       "./rules/dv-rule-multi-start-001/MultiStartRule.json"
     ]
   },
-  "dv-rule-canvas-001": {
-    "description": "Verify colors for node annotations",
-    "ruleJS": "./rules/dv-rule-canvas-001/IncorrectAnnotationColorRule.js",
-    "tests": [
-      "./rules/dv-rule-canvas-001/IncorrectAnnotationColor.json"
-    ]
-  },
-  "dv-rule-canvas-002": {
-    "description": "Verify font family for node annotations",
-    "ruleJS": "./rules/dv-rule-canvas-002/IncorrectAnnotationFontRule.js",
-    "tests": [
-      "./rules/dv-rule-canvas-002/IncorrectAnnotationFont.json"
-    ]
-  },
   "dv-rule-teleport-001": {
     "description": "Check for unused teleport nodes",
     "ruleJS": "./rules/dv-rule-teleport-001/TeleportRule.js",
@@ -82,11 +68,39 @@
       "./rules/dv-rule-empty-flow-001/EmptyFlow.json"
     ]
   },
-  "dv-rule-advanced-routing-001": {
-    "description": "Ensure the flow has advanced routing algorithm turned on",
-    "ruleJS": "./rules/dv-rule-advanced-routing-001/AdvancedRoutingRule.js",
+  "dv-rule-canvas-001": {
+    "description": "Verify colors for node annotations",
+    "ruleJS": "./rules/dv-rule-canvas-001/IncorrectAnnotationColorRule.js",
     "tests": [
-      "./rules/dv-rule-advanced-routing-001/AdvancedRoutingRule.json"
+      "./rules/dv-rule-canvas-001/IncorrectAnnotationColor.json"
+    ]
+  },
+  "dv-rule-canvas-002": {
+    "description": "Verify font family for node annotations",
+    "ruleJS": "./rules/dv-rule-canvas-002/IncorrectAnnotationFontRule.js",
+    "tests": [
+      "./rules/dv-rule-canvas-002/IncorrectAnnotationFont.json"
+    ]
+  },
+  "dv-rule-canvas-003": {
+    "description": "Verify flow contains title annotation",
+    "ruleJS": "./rules/dv-rule-canvas-003/MissingTitleAnnotationRule.js",
+    "tests": [
+      "./rules/dv-rule-canvas-003/MissingTitleAnnotation.json"
+    ]
+  },
+  "dv-rule-canvas-004": {
+    "description": "Verify Title Annotation is on top",
+    "ruleJS": "./rules/dv-rule-canvas-004/TitleNotOnTopRule.js",
+    "tests": [
+      "./rules/dv-rule-canvas-004/TitleNotOnTop.json"
+    ]
+  },
+  "dv-rule-canvas-005": {
+    "description": "Verify flow contains annotations",
+    "ruleJS": "./rules/dv-rule-canvas-005/MissingAnnotationsRule.js",
+    "tests": [
+      "./rules/dv-rule-canvas-005/MissingAnnotations.json"
     ]
   }
 }

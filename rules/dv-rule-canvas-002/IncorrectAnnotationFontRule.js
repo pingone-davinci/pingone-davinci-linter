@@ -14,7 +14,7 @@ class IncorrectAnnotationColorRule extends LintRule {
         const { data } = node;
         if (data.properties?.fontFamily?.value?.toLowerCase() !== fontFamily.toLowerCase()) {
           this.addError("dv-bp-annotation-002", {
-            messageArgs: [`${data.properties.fontFamily.value}`],
+            messageArgs: [data.properties.fontFamily.value, data.id],
             recommendationArgs: [LintCodes["dv-bp-annotation-001"].reference],
             nodeId: data.id,
           });

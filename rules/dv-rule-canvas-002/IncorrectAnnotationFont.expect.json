@@ -9,7 +9,7 @@
       "pass": false,
       "errorCount": 1,
       "errors": [
-        "Annotation font is not in sans-serif (verdana)"
+        "Annotation font is not in sans-serif [verdana] (4pmrtt0pi7)"
       ],
       "rulesApplied": [
         "dv-rule-canvas-002"
@@ -23,7 +23,7 @@
           "errors": [
             {
               "code": "dv-bp-annotation-002",
-              "message": "Annotation font is not in sans-serif (verdana)",
+              "message": "Annotation font is not in sans-serif [verdana] (4pmrtt0pi7)",
               "type": "best-practice",
               "recommendation": "Use sans-serif fontFamily for Annotations",
               "reference": "https://docs.pingidentity.com/r/en-us/davinci/rxo1664233464532",
