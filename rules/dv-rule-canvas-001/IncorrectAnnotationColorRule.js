@@ -7,23 +7,25 @@ class IncorrectAnnotationColorRule extends LintRule {
       const dvFlow = this.mainFlow;
 
       const annotationNodes = this.getNodesByType("annotationConnector");
-      const palette = ["#4462edff", "#5d00d6ff", "#e7e7e7ff", "#fffaa0ff", "fffaa0", "50E3C2ff"];
+      const palette = ["#4462edff", "#5d00d6ff", "#f2f3f4ff", "#fffaa0ff", "fffaa0ff", "50e3c2ff"];
 
       annotationNodes.forEach((node) => {
         const { data } = node;
-        if (!palette.includes(data.properties?.backgroundColor?.value)) {
+        const backgroundColor = data.properties?.backgroundColor?.value?.toLowerCase();
+
+        if (!palette.includes(backgroundColor)) {
           this.addError("dv-bp-annotation-001", {
             messageArgs: [data.properties.backgroundColor.value, data.id],
             recommendationArgs: [LintCodes["dv-bp-annotation-001"].reference],
             nodeId: data.id,
           });
         }
-
       });
     } catch (err) {
       this.addError("generic-error", { messageArgs: [`${err}`] });
     }
   }
+
 }
 
 module.exports = IncorrectAnnotationColorRule;
