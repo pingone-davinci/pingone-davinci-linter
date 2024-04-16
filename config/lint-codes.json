@@ -92,12 +92,6 @@
     "description": "The flow has no nodes, it is empty",
     "recommendation": "Remove the flow if not in use"
   },
-  "dv-rule-advanced-routing-001": {
-    "type": "best-practice",
-    "message": "Advanced Routing Algorithm is turned off",
-    "description": "In flow settings, Advanced Routing Algorithm is currently turned off",
-    "recommendation": "Turn the Advanced Routing Algorithm on."
-  },
   "generic-error": {
     "type": "error",
     "message": "Unknown Error: [%]",

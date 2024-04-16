@@ -30,12 +30,17 @@ program
   .option("-t, --table", "return table in output. (default)")
   .option("-c, --lintCodes", "print lint codes table")
   .option("-r, --lintRules", "print lint rules table")
+  .option("-n, --noColor", "print table with no color")
+  .option("-a, --ascii", "print table with ascii characters")
   .parse();
 
 const options = program.opts();
 
 // If json isn't set, then we need to always print the table
 options.table = !options.json;
+
+const color = options.noColor !== true;
+const border = options.ascii ? "ramac" : "honeywell";
 
 if (options.flow) {
   if (options.table) {
@@ -61,7 +66,7 @@ if (options.flow) {
   if (options.json) {
     console.log(JSON.stringify(result, null, 2));
   } else if (options.table) {
-    console.log(linter.getTable());
+    console.log(linter.getTable({ color, border }));
   }
 
   process.exit(result.pass ? 0 : 1);
