@@ -1,13 +1,13 @@
 // test/script.js
 
-const PingOneDaVinciLinter = require('pingone-davinci-linter')
+const PingOneDaVinciLinter = require("pingone-davinci-linter");
 
 // const linter = new PingOneDaVinciLinter();
 
-test('get codes', () => {
+test("get codes", () => {
   expect(PingOneDaVinciLinter.getCodes()).toBeDefined();
 });
 
-test('get rules', () => {
+test("get rules", () => {
   expect(PingOneDaVinciLinter.getRules()).toBeDefined();
 });
