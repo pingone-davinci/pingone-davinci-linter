@@ -17,7 +17,7 @@ class NodeRule extends LintRule {
         if (
           data.nodeType === "CONNECTION" &&
           !data.properties?.nodeTitle?.value &&
-          !(data.name === "Teleport" && data.capabilityName === "goToNode")
+          !((data.name === "Teleport" || data.name === "Node") && data.capabilityName === "goToNode")
         ) {
           this.addError("dv-bp-node-001", {
             messageArgs: [data.id, data.name],

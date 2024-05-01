@@ -1,0 +1,35 @@
+{
+  "pass": false,
+  "errorCount": 1,
+  "rulesIgnored": true,
+  "lintResults": [
+    {
+      "flowId": "01fe43ef0bf69d071d13dc9ee1a6d298",
+      "flowName": "Missing Annotations",
+      "pass": false,
+      "errorCount": 1,
+      "errors": [
+        "Flow contains no annotations"
+      ],
+      "rulesApplied": [
+        "dv-rule-canvas-005"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-canvas-005",
+          "ruleDescription": "Verify flow contains annotations",
+          "pass": false,
+          "errorCount": 1,
+          "errors": [
+            {
+              "code": "dv-bp-annotation-003",
+              "message": "Flow contains no annotations",
+              "type": "best-practice",
+              "recommendation": "Add annotations to flow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

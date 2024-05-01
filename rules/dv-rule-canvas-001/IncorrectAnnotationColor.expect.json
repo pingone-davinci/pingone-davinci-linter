@@ -1,0 +1,34 @@
+{
+  "pass": false,
+  "errorCount": 1,
+  "rulesIgnored": true,
+  "lintResults": [
+    {
+      "flowId": "d493071599c7996c28591f29b3578f2e",
+      "flowName": "Test Annotation Colors",
+      "pass": false,
+      "errorCount": 1,
+      "errors": [
+        "Annotation color is not in palette [#3030aeff] (4pmrtt0pi7)"
+      ],
+      "rulesApplied": [
+        "dv-rule-canvas-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-canvas-001",
+          "ruleDescription": "Verify colors for node annotations",
+          "pass": false,
+          "errorCount": 1,
+          "errors": [
+            {
+              "code": "dv-bp-annotation-001",
+              "message": "Annotation color is not in palette [#3030aeff] (4pmrtt0pi7)",
+              "type": "best-practice"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
