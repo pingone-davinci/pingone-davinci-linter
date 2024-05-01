@@ -1,5 +1,5 @@
 const LintRule = require("../../lib/LintRule");
-const LintCodes = require("../../config/lint-codes.json")
+const LintCodes = require("../../config/lint-codes.json");
 
 class IncorrectAnnotationColorRule extends LintRule {
   runRule() {
@@ -7,11 +7,20 @@ class IncorrectAnnotationColorRule extends LintRule {
       const dvFlow = this.mainFlow;
 
       const annotationNodes = this.getNodesByType("annotationConnector");
-      const palette = ["#4462edff", "#5d00d6ff", "#f2f3f4ff", "#fffaa0ff", "fffaa0ff", "50e3c2ff"];
+      const palette = [
+        "#4462edff",
+        "#5d00d6ff",
+        "#f2f3f4ff",
+        "#fffaa0ff",
+        "fffaa0ff",
+        "50e3c2ff",
+        "ffffffff",
+      ];
 
       annotationNodes.forEach((node) => {
         const { data } = node;
-        const backgroundColor = data.properties?.backgroundColor?.value?.toLowerCase();
+        const backgroundColor =
+          data.properties?.backgroundColor?.value?.toLowerCase();
 
         if (!palette.includes(backgroundColor)) {
           this.addError("dv-bp-annotation-001", {
@@ -25,7 +34,6 @@ class IncorrectAnnotationColorRule extends LintRule {
       this.addError("generic-error", { messageArgs: [`${err}`] });
     }
   }
-
 }
 
 module.exports = IncorrectAnnotationColorRule;
