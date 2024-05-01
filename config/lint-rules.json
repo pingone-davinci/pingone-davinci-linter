@@ -3,6 +3,13 @@
     "description": "Example Rule",
     "ruleJS": "./rules/dv-rule-example-001/ExampleRule.js"
   },
+  "dv-rule-general-001": {
+    "description": "Perform a bunch of general checks that cleaning ability",
+    "ruleJS": "./rules/dv-rule-general-001/GeneralRule.js",
+    "tests": [
+      "./rules/dv-rule-general-001/GeneralRule.json"
+    ]
+  },
   "dv-rule-logo-001": {
     "description": "Ensure logos are not hard coded and useCSS is used with a css logo tag.  Does not apply to subflows",
     "ruleJS": "./rules/dv-rule-logo-001/LogoRule.js",
@@ -51,7 +58,8 @@
     "description": "Check for unused teleport nodes",
     "ruleJS": "./rules/dv-rule-teleport-001/TeleportRule.js",
     "tests": [
-      "./rules/dv-rule-teleport-001/TeleportRule.json"
+      "./rules/dv-rule-teleport-001/TeleportRule.json",
+      "./rules/dv-rule-teleport-001/TeleportSchemaMismatch.json"
     ]
   },
   "dv-rule-debug-off-001": {

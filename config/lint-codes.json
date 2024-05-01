@@ -68,6 +68,12 @@
     "description": "Unsused Teleport Found",
     "recommendation": "Teleport start nodes that are not used should be removed from a flow."
   },
+  "dv-er-teleport-002": {
+    "type": "error",
+    "message": "Teleport schema mismatch.  Attribute '%' found, but not defined",
+    "description": "Teleport schema mismatch",
+    "recommendation": "Edit JSON to Teleport schema."
+  },
   "dv-er-node-001": {
     "type": "error",
     "message": "Disabled node % found",
