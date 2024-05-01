@@ -1,0 +1,34 @@
+{
+  "pass": false,
+  "errorCount": 1,
+  "rulesIgnored": true,
+  "lintResults": [
+    {
+      "pass": false,
+      "errorCount": 1,
+      "errors": [
+        "Teleport schema mismatch.  Attribute 'userid' found, but not defined"
+      ],
+      "rulesApplied": [
+        "dv-rule-teleport-001"
+      ],
+      "ruleResults": [
+        {
+          "ruleId": "dv-rule-teleport-001",
+          "ruleDescription": "Check for unused teleport nodes",
+          "pass": false,
+          "errorCount": 1,
+          "errors": [
+            {
+              "code": "dv-er-teleport-002",
+              "message": "Teleport schema mismatch.  Attribute 'userid' found, but not defined",
+              "type": "error",
+              "recommendation": "Edit JSON to Teleport schema."
+            }
+          ]
+        }
+      ],
+      "rulesIgnored": []
+    }
+  ]
+}
