@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const fs = require("fs");
 const DVLinter = require("pingone-davinci-linter");
 const { Command } = require("commander");
 const { version } = require("./package.json");
@@ -14,6 +15,10 @@ program
 
 program
   .option("-f, --flow <flow.json>", "flow.json, as exported from DaVcinci")
+  .option(
+    "-C, --clean <clean-flow.json>",
+    "clean-flwo.json, as cleaned DaVcinci flow after rules are applied"
+  )
   .option(
     "-i, --includeRule <ruleName>",
     "specify specific rule(s) to include - comma separated list"
@@ -43,30 +48,51 @@ const color = options.noColor !== true;
 const border = options.ascii ? "ramac" : "honeywell";
 
 if (options.flow) {
-  if (options.table) {
-    console.log(`
-  --------------------------------
-   Linting Flow: ${options.flow}
-           Rules: ${options.includeRule || "ALL"}
-           Exclude: ${options.excludeRule || "NONE"}
-           Ignore: ${options.ignoreRule || "NONE"}
-  --------------------------------
-  `);
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  const inputFlow = require(`./${options.flow}`);
+  const linter = new DVLinter(inputFlow);
+
+  let containsSubflows = true;
+  if (inputFlow.flowId) {
+    containsSubflows = false;
   }
 
-  // eslint-disable-next-line import/no-dynamic-require, global-require
-  const linter = new DVLinter(require(`./${options.flow}`));
+  if (options.table) {
+    console.log(`
+--------------------------------
+Linting File: ${options.flow}
+  Clean File: ${options.clean || "--no-clean--"}
+       Rules: ${options.includeRule || "ALL"}
+     Exclude: ${options.excludeRule || "NONE"}
+      Ignore: ${options.ignoreRule || "NONE"}
+--------------------------------
+    `);
+  }
 
   const result = linter.lintFlow({
     includeRules: options.includeRule ? options.includeRule : undefined,
     excludeRules: options.excludeRule ? options.excludeRule : undefined,
     ignoreRules: options.ignoreRule ? options.ignoreRule : undefined,
+    cleanFlow: options.clean !== undefined,
   });
 
   if (options.json) {
     console.log(JSON.stringify(result, null, 2));
   } else if (options.table) {
     console.log(linter.getTable({ color, border }));
+  }
+
+  if (options.clean) {
+    let cleanFlow = {};
+    if (containsSubflows) {
+      cleanFlow.flows = linter.allFlows;
+      cleanFlow.companyId = "";
+      cleanFlow.customerId = "";
+    } else {
+      [cleanFlow] = linter.allFlows;
+    }
+
+    fs.writeFileSync(options.clean, JSON.stringify(cleanFlow, null, 2));
   }
 
   process.exit(result.pass ? 0 : 1);
