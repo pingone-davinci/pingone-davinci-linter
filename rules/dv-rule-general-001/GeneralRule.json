@@ -1,0 +1,85 @@
+{
+  "companyId": "503f5f56-d442-4134-a906-8bc7c2e87910",
+  "authTokenExpireIds": [],
+  "connectorIds": [
+    "httpConnector"
+  ],
+  "createdDate": 1714596317570,
+  "currentVersion": 1,
+  "customerId": "ab7d566d93c42380f27682b13a857079",
+  "deployedDate": 1714596319902,
+  "description": "",
+  "flowStatus": "enabled",
+  "isOutputSchemaSaved": false,
+  "name": "dv-rule-general-001",
+  "publishedVersion": 1,
+  "settings": {
+    "csp": "worker-src 'self' blob:; script-src 'self' https://cdn.jsdelivr.net https://code.jquery.com https://devsdk.singularkey.com http://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval';",
+    "intermediateLoadingScreenCSS": "",
+    "intermediateLoadingScreenHTML": "",
+    "logLevel": 3
+  },
+  "timeouts": "null",
+  "updatedDate": 1714596319902,
+  "flowId": "2291498df43a63457abad5d2d1fa4df9",
+  "versionId": 1,
+  "graphData": {
+    "elements": {
+      "nodes": [
+        {
+          "data": {
+            "id": "c7xwh8vblu",
+            "nodeType": "CONNECTION",
+            "connectionId": "867ed4363b2bc21c860085ad2baa817d",
+            "connectorId": "httpConnector",
+            "name": "HTTP",
+            "label": "HTTP",
+            "status": "configured",
+            "capabilityName": "customHtmlMessage",
+            "type": "trigger",
+            "properties": {
+              "messageTitle": {
+                "cssValue": "\"Hello World\""
+              },
+              "nodeTitle": {
+                "value": "Hello"
+              }
+            }
+          },
+          "position": {
+            "x": 400,
+            "y": 400
+          },
+          "group": "nodes",
+          "removed": false,
+          "selected": false,
+          "selectable": true,
+          "locked": false,
+          "grabbable": true,
+          "pannable": false,
+          "classes": ""
+        }
+      ]
+    },
+    "data": {},
+    "zoomingEnabled": true,
+    "userZoomingEnabled": true,
+    "zoom": 1,
+    "minZoom": 1e-50,
+    "maxZoom": 1e+50,
+    "panningEnabled": true,
+    "userPanningEnabled": true,
+    "pan": {
+      "x": 0,
+      "y": 0
+    },
+    "boxSelectionEnabled": true,
+    "renderer": {
+      "name": "null"
+    }
+  },
+  "flowColor": "#AFD5FF",
+  "savedDate": 1714596317546,
+  "variables": [],
+  "connections": []
+}
