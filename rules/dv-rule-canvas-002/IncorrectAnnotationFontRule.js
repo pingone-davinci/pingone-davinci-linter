@@ -21,7 +21,6 @@ class IncorrectAnnotationColorRule extends LintRule {
             nodeId: data.id,
           });
 
-          console.log(this.cleanFlow);
           if (this.cleanFlow) {
             data.properties.fontFamily.value = fontFamily;
             this.addCleanResult(
