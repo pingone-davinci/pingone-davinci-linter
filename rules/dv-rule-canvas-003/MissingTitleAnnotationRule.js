@@ -1,5 +1,5 @@
 const LintRule = require("../../lib/LintRule");
-const LintCodes = require("../../config/lint-codes.json")
+const LintCodes = require("../../config/lint-codes.json");
 
 class MissingTitleAnnotationRule extends LintRule {
   runRule() {
@@ -19,10 +19,11 @@ class MissingTitleAnnotationRule extends LintRule {
 
       if (!titleNodePresent) {
         this.addError("dv-bp-missing-title-annotation-001", {
-          recommendationArgs: [LintCodes["dv-bp-missing-title-annotation-001"].reference],
+          recommendationArgs: [
+            LintCodes["dv-bp-missing-title-annotation-001"].reference,
+          ],
         });
       }
-
     } catch (err) {
       this.addError("generic-error", { messageArgs: [`${err}`] });
     }
