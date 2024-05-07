@@ -82,7 +82,7 @@ if (options.flow) {
       throw new Error("Invalid DaVinci JSON file.");
     }
 
-    if (!inputFlow.companyId) {
+    if (!inputFlow.flowId && !inputFlow.flows) {
       throw new Error("Invalid DaVinci JSON file.  Missing companyId.");
     }
   } catch (e) {
