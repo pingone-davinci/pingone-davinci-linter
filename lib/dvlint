@@ -51,14 +51,15 @@ const border = options.ascii ? "ramac" : "honeywell";
 const rulePacks = [];
 if (options.rulePacks) {
   options.rulePacks.forEach((rulePack) => {
-    if (rulePack.startsWith("/")) {
+    if (rulePack.startsWith("/") || rulePack.startsWith("git")) {
       rulePacks.push(rulePack);
     } else {
-      rulePacks.push(`${process.cwd()}/${rulePack}`);
+      // rulePacks.push(`${process.cwd()}/${rulePack}`);
+      rulePacks.push(rulePack);
     }
   });
 } else {
-  rulePacks.push("../linter-davinci-base-pack");
+  rulePacks.push("linter-davinci-base-pack");
 }
 
 const linter = new DVLinter({
