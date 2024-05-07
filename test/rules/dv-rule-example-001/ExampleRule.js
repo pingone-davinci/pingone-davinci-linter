@@ -1,7 +1,15 @@
-const LintRule = require("../../lib/LintRule");
-// const DVUtils = require("../../lib/DaVinciUtil");
+const LintRule = require("pingone-davinci-linter/lib/LintRule");
+// const DVUtils = require("pingone-davinci-linter/lib/DaVinciUtil");
 
 class ExampleRule extends LintRule {
+  constructor() {
+    super({
+      id: "dv-rule-example-001",
+      description: "Example Rule",
+      cleans: false,
+    });
+  }
+
   runRule() {
     try {
       const dvFlow = this.mainFlow;

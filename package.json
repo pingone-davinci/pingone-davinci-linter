@@ -47,7 +47,6 @@
     "argparse": "^2.0.1",
     "colors": "^1.4.0",
     "commander": "^11.0.0",
-    "pingone-davinci-linter": "file:",
     "table": "^6.8.1"
   }
 }

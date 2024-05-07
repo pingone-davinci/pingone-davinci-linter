@@ -14,11 +14,12 @@ program
   .version(version);
 
 program
-  .option("-f, --flow <flow.json>", "flow.json, as exported from DaVcinci")
+  .option("-f, --flow <flow.json>", "flow.json, as exported from DaVinci")
   .option(
     "-C, --clean <clean-flow.json>",
-    "clean-flwo.json, as cleaned DaVcinci flow after rules are applied"
+    "clean-flow.json, as cleaned DaVinci flow after rules are applied"
   )
+  .option("-R, --rulePacks <rulePack...>", "specify a set of rulePacks to use")
   .option(
     "-i, --includeRule <ruleName>",
     "specify specific rule(s) to include - comma separated list"
@@ -47,10 +48,39 @@ options.table = !options.json;
 const color = options.noColor !== true;
 const border = options.ascii ? "ramac" : "honeywell";
 
+let rulePacks = [];
+if (options.rulePacks) {
+  rulePacks = options.rulePacks || [];
+} else {
+  rulePacks.push("../linter-davinci-base-pack");
+}
+
+const linter = new DVLinter({
+  directory: __dirname,
+  rulePacks,
+});
+
 if (options.flow) {
+  let flowPath = options.flow;
+
+  if (!flowPath.startsWith("/")) {
+    flowPath = `./${flowPath}`;
+  }
   // eslint-disable-next-line import/no-dynamic-require, global-require
-  const inputFlow = require(`./${options.flow}`);
-  const linter = new DVLinter(inputFlow);
+  const inputFlow = require(flowPath);
+
+  try {
+    if (typeof inputFlow !== "object") {
+      throw new Error("Invalid DaVinci JSON file.");
+    }
+
+    if (!inputFlow.companyId) {
+      throw new Error("Invalid DaVinci JSON file.  Missing companyId.");
+    }
+  } catch (e) {
+    console.error(`Flow '${flowPath}' must be a valid DaVinci JSON file.`);
+    process.exit(1);
+  }
 
   let containsSubflows = true;
   if (inputFlow.flowId) {
@@ -69,7 +99,7 @@ Linting File: ${options.flow}
     `);
   }
 
-  const result = linter.lintFlow({
+  const result = linter.lintFlow(inputFlow, {
     includeRules: options.includeRule ? options.includeRule : undefined,
     excludeRules: options.excludeRule ? options.excludeRule : undefined,
     ignoreRules: options.ignoreRule ? options.ignoreRule : undefined,
@@ -100,16 +130,16 @@ Linting File: ${options.flow}
 
 if (options.lintCodes) {
   if (options.json) {
-    console.log(DVLinter.getCodes());
+    console.log(linter.getCodes("json"));
   } else if (options.table) {
-    console.log(DVLinter.getCodesTable());
+    console.log(linter.getCodes());
   }
 }
 
 if (options.lintRules) {
   if (options.json) {
-    console.log(DVLinter.getRules());
+    console.log(linter.getRules("json"));
   } else if (options.table) {
-    console.log(DVLinter.getRulesTable());
+    console.log(linter.getRules());
   }
 }

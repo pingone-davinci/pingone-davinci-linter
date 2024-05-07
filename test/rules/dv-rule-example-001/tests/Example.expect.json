@@ -1,0 +1,35 @@
+{
+  "name": "PingOne DaVinci Linter",
+  "pass": true,
+  "errorCount": 0,
+  "rulePackResults": [
+    {
+      "name": "example-rule-pack",
+      "pass": true,
+      "errorCount": 0,
+      "lintResults": [
+        {
+          "flowId": "2291498df43a63457abad5d2d1fa4df9",
+          "flowName": "dv-rule-general-001",
+          "pass": true,
+          "errorCount": 0,
+          "errors": [],
+          "rulesApplied": [
+            "dv-rule-example-001"
+          ],
+          "ruleResults": [
+            {
+              "ruleId": "dv-rule-example-001",
+              "ruleDescription": "Example Rule",
+              "pass": true,
+              "errorCount": 0,
+              "errors": []
+            }
+          ],
+          "rulesIgnored": []
+        }
+      ],
+      "rulesIgnored": true
+    }
+  ]
+}
