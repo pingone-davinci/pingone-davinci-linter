@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const fs = require("fs");
-const DVLinter = require("pingone-davinci-linter");
 const { Command } = require("commander");
-const { version } = require("./package.json");
+const DVLinter = require("./PingOneDaVinciLinter");
+const { version } = require("../package.json");
 
 const program = new Command();
 
@@ -48,9 +48,15 @@ options.table = !options.json;
 const color = options.noColor !== true;
 const border = options.ascii ? "ramac" : "honeywell";
 
-let rulePacks = [];
+const rulePacks = [];
 if (options.rulePacks) {
-  rulePacks = options.rulePacks || [];
+  options.rulePacks.forEach((rulePack) => {
+    if (rulePack.startsWith("/")) {
+      rulePacks.push(rulePack);
+    } else {
+      rulePacks.push(`${process.cwd()}/${rulePack}`);
+    }
+  });
 } else {
   rulePacks.push("../linter-davinci-base-pack");
 }
@@ -64,8 +70,9 @@ if (options.flow) {
   let flowPath = options.flow;
 
   if (!flowPath.startsWith("/")) {
-    flowPath = `./${flowPath}`;
+    flowPath = `${process.cwd()}/${flowPath}`;
   }
+
   // eslint-disable-next-line import/no-dynamic-require, global-require
   const inputFlow = require(flowPath);
 

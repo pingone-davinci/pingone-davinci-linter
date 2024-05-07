@@ -1,4 +1,4 @@
-const LintRulePack = require("pingone-davinci-linter/lib/LintRulePack");
+const LintRulePack = require("../lib/LintRulePack");
 const { version } = require("../package.json");
 
 class PingIdentityBaseDaVinciRulePack extends LintRulePack {
