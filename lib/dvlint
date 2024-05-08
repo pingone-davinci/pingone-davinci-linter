@@ -4,6 +4,7 @@
 const path = require("path");
 const fs = require("fs");
 const { Command } = require("commander");
+// eslint-disable-next-line import/no-extraneous-dependencies
 const diff = require("diff");
 const DVLinter = require("./PingOneDaVinciLinter");
 const { version } = require("../package.json");
@@ -68,10 +69,29 @@ if (options.rulePacks) {
   rulePacks.push("linter-davinci-base-pack");
 }
 
-const linter = new DVLinter({
-  directory: __dirname,
-  rulePacks,
-});
+let linter;
+try {
+  linter = new DVLinter({
+    directory: __dirname,
+    rulePacks,
+  });
+} catch (err) {
+  if (err.code === "MODULE_NOT_FOUND") {
+    process.stdout.write(
+      `
+Error: Could not find rule pack '${err.message.split("'")[1]}'
+
+Please ensure the rule pack is installed and available in the node_modules directory.
+
+The default rule pack used is 'linter-davinci-base-pack'.
+You can install running the following command:
+
+  npm install -g linter-davinci-base-pack
+  `
+    );
+    process.exit(1);
+  }
+}
 
 if (options.flow) {
   let flowPath = options.flow;

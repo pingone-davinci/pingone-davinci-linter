@@ -4,7 +4,7 @@
   "description": "PingOne DaVinci Flow Linter",
   "main": "lib/dvlint",
   "bin": {
-    "dvlint": "lib/dvlint"
+    "dvlint": "lib/dvlint github:pingone-davinci/linter-davinci-base-pack#0.1.0"
   },
   "files": [
     "bin",
@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "test": "jest --verbose",
-    "eslint": "eslint -c .eslintrc ./lib/**"
+    "eslint": "eslint -c .eslintrc ./lib/**",
+    "postinstall": "npm install github:pingone-davinci/linter-davinci-base-pack#0.1.0"
   },
   "repository": {
     "type": "git",
@@ -49,7 +50,6 @@
     "commander": "^11.0.0",
     "diff": "^5.2.0",
     "linter-davinci-base-pack": "github:pingone-davinci/linter-davinci-base-pack#0.1.0",
-    "linter-example-rule-pack": "github:pingone-davinci/linter-example-rule-pack#0.1.0",
     "table": "^6.8.1"
   }
 }
