@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const path = require("path");
 const fs = require("fs");
 const { Command } = require("commander");
 const DVLinter = require("./PingOneDaVinciLinter");
@@ -16,8 +17,8 @@ program
 program
   .option("-f, --flow <flow.json>", "flow.json, as exported from DaVinci")
   .option(
-    "-C, --clean <clean-flow.json>",
-    "clean-flow.json, as cleaned DaVinci flow after rules are applied"
+    "-C, --clean",
+    "performs cleaning on the flow and saves it to a CLEAN-{flow}.json after rules are applied"
   )
   .option("-R, --rulePacks <rulePack...>", "specify a set of rulePacks to use")
   .option(
@@ -74,6 +75,15 @@ if (options.flow) {
     flowPath = `${process.cwd()}/${flowPath}`;
   }
 
+  // Create a clean flow path if the clean option is set setting it to
+  // the same path as the flow file with a prefix of CLEAN-
+  let cleanFlowPath;
+  if (options.clean) {
+    cleanFlowPath = path.join(
+      path.dirname(flowPath),
+      `CLEAN-${path.basename(flowPath)}`
+    );
+  }
   // eslint-disable-next-line import/no-dynamic-require, global-require
   const inputFlow = require(flowPath);
 
@@ -99,7 +109,7 @@ if (options.flow) {
     console.log(`
 --------------------------------
 Linting File: ${options.flow}
-  Clean File: ${options.clean || "--no-clean--"}
+  Clean File: ${cleanFlowPath || "--no-clean--"}
        Rules: ${options.includeRule || "ALL"}
      Exclude: ${options.excludeRule || "NONE"}
       Ignore: ${options.ignoreRule || "NONE"}
@@ -130,7 +140,7 @@ Linting File: ${options.flow}
       [cleanFlow] = linter.allFlows;
     }
 
-    fs.writeFileSync(options.clean, JSON.stringify(cleanFlow, null, 2));
+    fs.writeFileSync(cleanFlowPath, JSON.stringify(cleanFlow, null, 2));
   }
 
   process.exit(result.pass ? 0 : 1);
