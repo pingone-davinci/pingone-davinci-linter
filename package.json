@@ -14,8 +14,7 @@
   ],
   "scripts": {
     "test": "jest --verbose",
-    "eslint": "eslint -c .eslintrc ./lib/**",
-    "postinstall": "echo 'Recommend installing base rule pack with:\n   npm install -g github:pingone-davinci/linter-davinci-base-pack#0.1.0'"
+    "eslint": "eslint -c .eslintrc ./lib/**"
   },
   "repository": {
     "type": "git",
