@@ -7,7 +7,7 @@ const {
   author,
 } = require("../package.json");
 
-class ExampleRulePack extends LintRulePack {
+class RulePack extends LintRulePack {
   constructor() {
     super({
       directory: __dirname,
@@ -20,4 +20,4 @@ class ExampleRulePack extends LintRulePack {
   }
 }
 
-module.exports = ExampleRulePack;
+module.exports = RulePack;
