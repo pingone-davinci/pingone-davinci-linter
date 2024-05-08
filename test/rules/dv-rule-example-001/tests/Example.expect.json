@@ -4,7 +4,7 @@
   "errorCount": 0,
   "rulePackResults": [
     {
-      "name": "example-rule-pack",
+      "name": "pingone-davinci-linter",
       "pass": true,
       "errorCount": 0,
       "lintResults": [
