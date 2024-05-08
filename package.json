@@ -47,8 +47,8 @@
     "argparse": "^2.0.1",
     "colors": "^1.4.0",
     "commander": "^11.0.0",
-    "linter-example-rule-pack": "github:pingone-davinci/linter-example-rule-pack#0.1.0",
     "linter-davinci-base-pack": "github:pingone-davinci/linter-davinci-base-pack#0.1.0",
+    "linter-example-rule-pack": "github:pingone-davinci/linter-example-rule-pack#0.1.0",
     "table": "^6.8.1"
   }
 }
