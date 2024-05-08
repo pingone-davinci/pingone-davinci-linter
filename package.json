@@ -4,7 +4,7 @@
   "description": "PingOne DaVinci Flow Linter",
   "main": "lib/dvlint",
   "bin": {
-    "dvlint": "lib/dvlint github:pingone-davinci/linter-davinci-base-pack#0.1.0"
+    "dvlint": "lib/dvlint"
   },
   "files": [
     "bin",
