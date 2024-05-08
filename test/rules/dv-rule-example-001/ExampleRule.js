@@ -6,6 +6,7 @@ class ExampleRule extends LintRule {
       id: "dv-rule-example-001",
       description: "Example Rule",
       cleans: false,
+      reference: "",
     });
   }
 

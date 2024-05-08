@@ -1,16 +1,23 @@
 const LintRulePack = require("../lib/LintRulePack");
-const { version } = require("../package.json");
+const {
+  name,
+  version,
+  description,
+  homepage,
+  author,
+} = require("../package.json");
 
-class PingIdentityBaseDaVinciRulePack extends LintRulePack {
+class ExampleRulePack extends LintRulePack {
   constructor() {
     super({
       directory: __dirname,
       version,
-      name: "example-rule-pack",
-      description: "Collection of Example Rules for DaVinci.",
-      author: "Ping Identity - cloud-solutions@pingidentity.com",
+      name,
+      description,
+      homepage,
+      author,
     });
   }
 }
 
-module.exports = PingIdentityBaseDaVinciRulePack;
+module.exports = ExampleRulePack;
