@@ -4,6 +4,7 @@
 const path = require("path");
 const fs = require("fs");
 const { Command } = require("commander");
+const diff = require("diff");
 const DVLinter = require("./PingOneDaVinciLinter");
 const { version } = require("../package.json");
 
@@ -19,6 +20,10 @@ program
   .option(
     "-C, --clean",
     "performs cleaning on the flow and saves it to a CLEAN-{flow}.json after rules are applied"
+  )
+  .option(
+    "-d, --diff",
+    "returns differences between the original flow and the cleaned flow"
   )
   .option("-R, --rulePacks <rulePack...>", "specify a set of rulePacks to use")
   .option(
@@ -141,6 +146,32 @@ Linting File: ${options.flow}
     }
 
     fs.writeFileSync(cleanFlowPath, JSON.stringify(cleanFlow, null, 2));
+
+    if (options.diff) {
+      process.stdout.write(
+        "Differences between original and cleaned flow:\n\n"
+      );
+      try {
+        const flowContent = fs.readFileSync(flowPath, "utf8");
+        const cleanFlowContent = fs.readFileSync(cleanFlowPath, "utf8");
+        const differences = diff.diffLines(flowContent, cleanFlowContent);
+        differences.forEach((part) => {
+          if (part.added || part.removed) {
+            let pre = "";
+            if (part.added) {
+              pre = "\x1b[32m+";
+            } else if (part.removed) {
+              pre = "\x1b[31m-";
+            } else {
+              pre = "\x1b[0m";
+            }
+            process.stdout.write(pre + part.value);
+          }
+        });
+      } catch (error) {
+        console.error("Error comparing files:", error);
+      }
+    }
   }
 
   process.exit(result.pass ? 0 : 1);
