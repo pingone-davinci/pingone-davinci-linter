@@ -1,7 +1,7 @@
 pingone-davinci-linter  ![example workflow](https://github.com/pingone-davinci/pingone-davinci-linter/actions/workflows/tests.yml/badge.svg)
 =========
 
-This package allows for the linting of PingOne DaVinci flows (as exported from DaVinci) against a known set of
+This JavaScript module lints PingOne DaVinci flows (as exported from DaVinci) against a known set of
 rules and return codes.
 
 ## Features

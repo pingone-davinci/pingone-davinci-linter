@@ -39,8 +39,8 @@ program
     "-g, --ignoreRule <ruleName>",
     "specify specific rule(s) to ignore - comma separated list"
   )
-  .option("-j, --json", "return json in output")
-  .option("-t, --table", "return table in output. (default)")
+  .option("-j, --json", "returns json in output")
+  .option("-t, --table", "returns text table in output. (default)")
   .option("-c, --lintCodes", "print lint codes table")
   .option("-r, --lintRules", "print lint rules table")
   .option("-n, --noColor", "print table with no color")
@@ -72,12 +72,11 @@ if (options.rulePacks) {
 let linter;
 try {
   linter = new DVLinter({
-    directory: __dirname,
     rulePacks,
   });
 } catch (err) {
   if (err.code === "MODULE_NOT_FOUND") {
-    process.stdout.write(
+    console.log(
       `
 Error: Could not find rule pack '${err.message.split("'")[1]}'
 

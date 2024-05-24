@@ -15,11 +15,11 @@
           "errorCount": 0,
           "errors": [],
           "rulesApplied": [
-            "dv-rule-example-001"
+            "example-rule"
           ],
           "ruleResults": [
             {
-              "ruleId": "dv-rule-example-001",
+              "ruleId": "example-rule",
               "ruleDescription": "Example Rule",
               "pass": true,
               "errorCount": 0,

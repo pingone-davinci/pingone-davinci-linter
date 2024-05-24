@@ -3,10 +3,17 @@ const LintRule = require("../../../lib/LintRule");
 class ExampleRule extends LintRule {
   constructor() {
     super({
-      id: "dv-rule-example-001",
+      id: "example-rule",
       description: "Example Rule",
       cleans: false,
-      reference: "",
+      reference: "https://example-reference-rule/doc",
+    });
+
+    this.addCode("example-error", {
+      description: "Example Rule Description",
+      message: "Example Rule of flow '%'",
+      type: "best-practice",
+      recommendation: "We recommend this example.",
     });
   }
 
