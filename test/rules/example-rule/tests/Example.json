@@ -4,25 +4,31 @@
   "connectorIds": [
     "httpConnector"
   ],
-  "createdDate": 1693927052995,
-  "currentVersion": 0,
-  "customerId": "a5f6b88217dbe93c7800188014196181",
-  "deployedDate": 1693927056736,
+  "createdDate": 1714596317570,
+  "currentVersion": 1,
+  "customerId": "ab7d566d93c42380f27682b13a857079",
+  "deployedDate": 1714596319902,
   "description": "",
   "flowStatus": "enabled",
   "isOutputSchemaSaved": false,
-  "name": "Test - Single node flow",
-  "publishedVersion": 0,
+  "name": "dv-rule-general-001",
+  "publishedVersion": 1,
+  "settings": {
+    "csp": "worker-src 'self' blob:; script-src 'self' https://cdn.jsdelivr.net https://code.jquery.com https://devsdk.singularkey.com http://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval';",
+    "intermediateLoadingScreenCSS": "",
+    "intermediateLoadingScreenHTML": "",
+    "logLevel": 3
+  },
   "timeouts": "null",
-  "updatedDate": 1693927056736,
-  "flowId": "f0a4d9b79c9bb3ff908bc06f019c636b",
-  "versionId": 0,
+  "updatedDate": 1714596319902,
+  "flowId": "2291498df43a63457abad5d2d1fa4df9",
+  "versionId": 1,
   "graphData": {
     "elements": {
       "nodes": [
         {
           "data": {
-            "id": "w5bx1m32fd",
+            "id": "c7xwh8vblu",
             "nodeType": "CONNECTION",
             "connectionId": "867ed4363b2bc21c860085ad2baa817d",
             "connectorId": "httpConnector",
@@ -32,11 +38,11 @@
             "capabilityName": "customHtmlMessage",
             "type": "trigger",
             "properties": {
-              "message": {
-                "value": "[\n  {\n    \"children\": [\n      {\n        \"text\": \"Single node\"\n      }\n    ]\n  }\n]"
+              "messageTitle": {
+                "cssValue": "\"Hello World\""
               },
               "nodeTitle": {
-                "value": "Single Node"
+                "value": "Hello"
               }
             }
           },
@@ -73,7 +79,7 @@
     }
   },
   "flowColor": "#AFD5FF",
-  "savedDate": 1693927052967,
+  "savedDate": 1714596317546,
   "variables": [],
   "connections": []
 }

@@ -1,33 +1,39 @@
 pingone-davinci-linter  ![example workflow](https://github.com/pingone-davinci/pingone-davinci-linter/actions/workflows/tests.yml/badge.svg)
 =========
 
-This package allows for the linting of PingOne DaVinci flows (as exported from DaVinci) against a known set of
+This JavaScript module lints PingOne DaVinci flows (as exported from DaVinci) against a known set of
 rules and return codes.
 
-## Features
-
-- Set of flows to check for errors, best-pratices, syntax, security, ... issues with PingOne DaVinci flows.
-- `dvlint` CLI tool to run the linter utilities
-  - `dvlint -f FLOW` to lint a flow stored in the FLOW file
-  - `dvlint -r` to get all the avaiable rules
-  - `dvlint -c` to get all the available codes
-  - Both JSON and table formats
+More information on the PingOne DaVinci Linter can be found in [Ping Library](https://library.pingidentity.com/page/collection-linter).
 
 ## Installation
 
 ```bash
-npm install pingone-davinci-linter
+npm install -g git://github.com/pingone-davinci/pingone-davinci-linter.git
+npm install -g git://github.com/pingone-davinci/linter-davinci-base-pack.git
+
+dvlint -V     # Returns version
+dvlint -r     # Prints out rules from default rule pack
 ```
 
+## Features
+
+- Set of flows to check for errors, best-practices, syntax, security, ... issues with PingOne DaVinci flows.
+- `dvlint` CLI tool to run the linter utilities
+  - `dvlint -f FLOW` to lint a flow stored in the FLOW file
+  - `dvlint -r` to get all the available rules
+  - `dvlint -c` to get all the available codes
+  - Both JSON and table formats
+
 ## Rules List
-To get a most recent list of rules, run the `dvlint` utility to print a table or JSON object of all rules.
+To get a list of rules for a rule pack(s), run the `dvlint` utility to print a table or JSON object of all rules.
 ```bash
 ./dvlint -r    # Prints a table of rules
 ./dvlint -r -j # Prints a JSON object of rules
 ```
 
 ## Codes List
-To get a most recent list of codes, run the `dvlint` utility to print a table or JSON object of all codes.
+To get a list of codes for a rule pack(s), run the `dvlint` utility to print a table or JSON object of all codes.
 ```bash
 ./dvlint -c    # Prints a table of codes
 ./dvlint -c -j # Prints a JSON object of codes

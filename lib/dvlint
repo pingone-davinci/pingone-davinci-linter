@@ -1,0 +1,220 @@
+#!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const path = require("path");
+const fs = require("fs");
+const { Command } = require("commander");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const diff = require("diff");
+const DVLinter = require("./PingOneDaVinciLinter");
+const { version } = require("../package.json");
+
+const program = new Command();
+
+program
+  .name("dvlint")
+  .description("CLI to PingOne DaVinci Linter")
+  .version(version);
+
+program
+  .option("-f, --flow <flow.json>", "flow.json, as exported from DaVinci")
+  .option(
+    "-C, --clean",
+    "performs cleaning on the flow and saves it to a CLEAN-{flow}.json after rules are applied"
+  )
+  .option(
+    "-d, --diff",
+    "returns differences between the original flow and the cleaned flow"
+  )
+  .option("-R, --rulePacks <rulePack...>", "specify a set of rulePacks to use")
+  .option(
+    "-i, --includeRule <ruleName>",
+    "specify specific rule(s) to include - comma separated list"
+  )
+  .option(
+    "-e, --excludeRule <ruleName>",
+    "specify specific rule(s) to exclude - comma separated list"
+  )
+  .option(
+    "-g, --ignoreRule <ruleName>",
+    "specify specific rule(s) to ignore - comma separated list"
+  )
+  .option("-j, --json", "returns json in output")
+  .option("-t, --table", "returns text table in output. (default)")
+  .option("-c, --lintCodes", "print lint codes table")
+  .option("-r, --lintRules", "print lint rules table")
+  .option("-n, --noColor", "print table with no color")
+  .option("-a, --ascii", "print table with ascii characters")
+  .parse();
+
+const options = program.opts();
+
+// If json isn't set, then we need to always print the table
+options.table = !options.json;
+
+const color = options.noColor !== true;
+const border = options.ascii ? "ramac" : "honeywell";
+
+const rulePackNames = [];
+if (options.rulePacks) {
+  options.rulePacks.forEach((rulePack) => {
+    if (rulePack.startsWith("/") || rulePack.startsWith("git")) {
+      rulePackNames.push(rulePack);
+    } else {
+      rulePackNames.push(rulePack);
+    }
+  });
+} else {
+  rulePackNames.push("linter-davinci-base-pack");
+}
+
+const rulePacks = [];
+rulePackNames.forEach((rulePack) => {
+  try {
+    const RulePack = DVLinter.requireWithRetry(rulePack);
+    rulePacks.push(RulePack);
+  } catch (err) {
+    console.log(
+      `
+Error: Could not find rule pack '${err.message.split("'")[1]}'
+
+Please ensure the rule pack is installed and available in the node_modules directory.
+
+The default rule pack used is 'linter-davinci-base-pack'.
+You can install running the following command:
+
+  npm install -g git://github.com/pingone-davinci/linter-davinci-base-pack.git
+`
+    );
+    process.exit(1);
+  }
+});
+
+let linter;
+try {
+  linter = new DVLinter({
+    rulePacks,
+  });
+} catch (err) {
+  console.log(err);
+}
+
+if (options.flow) {
+  let flowPath = options.flow;
+
+  if (!flowPath.startsWith("/")) {
+    flowPath = `${process.cwd()}/${flowPath}`;
+  }
+
+  // Create a clean flow path if the clean option is set setting it to
+  // the same path as the flow file with a prefix of CLEAN-
+  let cleanFlowPath;
+  if (options.clean) {
+    cleanFlowPath = path.join(
+      path.dirname(flowPath),
+      `CLEAN-${path.basename(flowPath)}`
+    );
+  }
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  const inputFlow = require(flowPath);
+
+  try {
+    if (typeof inputFlow !== "object") {
+      throw new Error("Invalid DaVinci JSON file.");
+    }
+
+    if (!inputFlow.flowId && !inputFlow.flows) {
+      throw new Error("Invalid DaVinci JSON file.  Missing companyId.");
+    }
+  } catch (e) {
+    console.error(`Flow '${flowPath}' must be a valid DaVinci JSON file.`);
+    process.exit(1);
+  }
+
+  let containsSubflows = true;
+  if (inputFlow.flowId) {
+    containsSubflows = false;
+  }
+
+  if (options.table) {
+    console.log(`
+--------------------------------
+Linting File: ${options.flow}
+  Clean File: ${cleanFlowPath || "--no-clean--"}
+       Rules: ${options.includeRule || "ALL"}
+     Exclude: ${options.excludeRule || "NONE"}
+      Ignore: ${options.ignoreRule || "NONE"}
+--------------------------------
+    `);
+  }
+
+  const result = linter.lintFlow(inputFlow, {
+    includeRules: options.includeRule ? options.includeRule : undefined,
+    excludeRules: options.excludeRule ? options.excludeRule : undefined,
+    ignoreRules: options.ignoreRule ? options.ignoreRule : undefined,
+    cleanFlow: options.clean !== undefined,
+  });
+
+  if (options.json) {
+    console.log(JSON.stringify(result, null, 2));
+  } else if (options.table) {
+    console.log(linter.getTable({ color, border }));
+  }
+
+  if (options.clean) {
+    let cleanFlow = {};
+    if (containsSubflows) {
+      cleanFlow.flows = linter.allFlows;
+      cleanFlow.companyId = "";
+      cleanFlow.customerId = "";
+    } else {
+      [cleanFlow] = linter.allFlows;
+    }
+
+    fs.writeFileSync(cleanFlowPath, JSON.stringify(cleanFlow, null, 2));
+
+    if (options.diff) {
+      process.stdout.write(
+        "Differences between original and cleaned flow:\n\n"
+      );
+      try {
+        const flowContent = fs.readFileSync(flowPath, "utf8");
+        const cleanFlowContent = fs.readFileSync(cleanFlowPath, "utf8");
+        const differences = diff.diffLines(flowContent, cleanFlowContent);
+        differences.forEach((part) => {
+          if (part.added || part.removed) {
+            let pre = "";
+            if (part.added) {
+              pre = "\x1b[32m+";
+            } else if (part.removed) {
+              pre = "\x1b[31m-";
+            } else {
+              pre = "\x1b[0m";
+            }
+            process.stdout.write(pre + part.value);
+          }
+        });
+      } catch (error) {
+        console.error("Error comparing files:", error);
+      }
+    }
+  }
+
+  process.exit(result.pass ? 0 : 1);
+}
+
+if (options.lintCodes) {
+  if (options.json) {
+    console.log(linter.getCodes("json"));
+  } else if (options.table) {
+    console.log(linter.getCodes());
+  }
+}
+
+if (options.lintRules) {
+  if (options.json) {
+    console.log(linter.getRules("json"));
+  } else if (options.table) {
+    console.log(linter.getRules());
+  }
+}

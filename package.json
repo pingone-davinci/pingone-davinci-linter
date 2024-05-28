@@ -1,10 +1,10 @@
 {
   "name": "pingone-davinci-linter",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "PingOne DaVinci Flow Linter",
-  "main": "lib/PingOneDaVinciLinter.js",
+  "main": "lib/dvlint",
   "bin": {
-    "dvlint": "./dvlint"
+    "dvlint": "lib/dvlint"
   },
   "files": [
     "bin",
@@ -26,7 +26,7 @@
     "flow",
     "linter"
   ],
-  "author": "Ping Identity Solution Innovations (https://www.pingidentity.com/)",
+  "author": "Ping Identity (https://www.pingidentity.com/)",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/pingone-davinci/pingone-davinci-linter/issues"
@@ -47,7 +47,7 @@
     "argparse": "^2.0.1",
     "colors": "^1.4.0",
     "commander": "^11.0.0",
-    "pingone-davinci-linter": "file:",
+    "diff": "^5.2.0",
     "table": "^6.8.1"
   }
 }
