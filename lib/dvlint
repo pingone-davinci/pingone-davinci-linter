@@ -83,8 +83,8 @@ Please ensure the rule pack is installed and available in the node_modules direc
 The default rule pack used is 'linter-davinci-base-pack'.
 You can install running the following command:
 
-  npm install -g linter-davinci-base-pack
-  `
+  npm install -g git://github.com/pingone-davinci/linter-davinci-base-pack.git
+`
     );
     process.exit(1);
   }
