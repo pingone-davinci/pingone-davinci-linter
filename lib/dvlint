@@ -55,27 +55,25 @@ options.table = !options.json;
 const color = options.noColor !== true;
 const border = options.ascii ? "ramac" : "honeywell";
 
-const rulePacks = [];
+const rulePackNames = [];
 if (options.rulePacks) {
   options.rulePacks.forEach((rulePack) => {
     if (rulePack.startsWith("/") || rulePack.startsWith("git")) {
-      rulePacks.push(rulePack);
+      rulePackNames.push(rulePack);
     } else {
-      // rulePacks.push(`${process.cwd()}/${rulePack}`);
-      rulePacks.push(rulePack);
+      rulePackNames.push(rulePack);
     }
   });
 } else {
-  rulePacks.push("linter-davinci-base-pack");
+  rulePackNames.push("linter-davinci-base-pack");
 }
 
-let linter;
-try {
-  linter = new DVLinter({
-    rulePacks,
-  });
-} catch (err) {
-  if (err.code === "MODULE_NOT_FOUND") {
+const rulePacks = [];
+rulePackNames.forEach((rulePack) => {
+  try {
+    const RulePack = DVLinter.requireWithRetry(rulePack);
+    rulePacks.push(RulePack);
+  } catch (err) {
     console.log(
       `
 Error: Could not find rule pack '${err.message.split("'")[1]}'
@@ -90,6 +88,15 @@ You can install running the following command:
     );
     process.exit(1);
   }
+});
+
+let linter;
+try {
+  linter = new DVLinter({
+    rulePacks,
+  });
+} catch (err) {
+  console.log(err);
 }
 
 if (options.flow) {
