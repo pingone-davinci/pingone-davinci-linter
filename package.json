@@ -1,6 +1,6 @@
 {
   "name": "pingone-davinci-linter",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "PingOne DaVinci Flow Linter",
   "main": "lib/dvlint",
   "bin": {
