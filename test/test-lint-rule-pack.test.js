@@ -1,4 +1,4 @@
 const TestLinter = require("../lib/TestLinter");
 
-const tester = new TestLinter(__dirname, "./test/RulePack.js");
+const tester = new TestLinter(__dirname, "./RulePack.js");
 tester.runTests();
