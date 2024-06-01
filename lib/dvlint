@@ -65,25 +65,26 @@ if (options.rulePacks) {
     }
   });
 } else {
-  rulePackNames.push("linter-davinci-base-pack");
+  rulePackNames.push("@pingidentity/dvlint-base-rule-pack");
 }
 
 const rulePacks = [];
 rulePackNames.forEach((rulePack) => {
   try {
-    const RulePack = DVLinter.requireWithRetry(rulePack);
+    const RulePack = DVLinter.requireWithRetry(".", rulePack);
     rulePacks.push(RulePack);
   } catch (err) {
+    console.log(err);
     console.log(
       `
 Error: Could not find rule pack '${err.message.split("'")[1]}'
 
 Please ensure the rule pack is installed and available in the node_modules directory.
 
-The default rule pack used is 'linter-davinci-base-pack'.
+The default rule pack used is '@pingidentity/dvlint-base-rule-pack'.
 You can install running the following command:
 
-  npm install -g git://github.com/pingone-davinci/linter-davinci-base-pack.git
+  npm install -g @pingidentity/dvlint-base-rule-pack --registry https://npm.pinglibrary.com
 `
     );
     process.exit(1);

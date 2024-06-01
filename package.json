@@ -1,8 +1,9 @@
 {
-  "name": "pingone-davinci-linter",
-  "version": "0.6.2",
+  "name": "@pingidentity/dvlint",
+  "version": "0.6.3",
   "description": "PingOne DaVinci Flow Linter",
-  "main": "lib/dvlint",
+  "homepage": "https://library.pingidentity.com/page/davinci-linter-cli",
+  "main": "lib/index.js",
   "bin": {
     "dvlint": "lib/dvlint"
   },
@@ -18,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pingone-davinci/pingone-davinci-linter.git"
+    "url": "git+https://github.com/pingone-davinci/pingone-davinci-linter.git"
   },
   "keywords": [
     "pingone",
@@ -31,8 +32,8 @@
   "bugs": {
     "url": "https://github.com/pingone-davinci/pingone-davinci-linter/issues"
   },
-  "homepage": "https://github.com/pingone-davinci/pingone-davinci-linter#readme",
   "devDependencies": {
+    "@pingidentity/dvlint-base-rule-pack": "^0.1.2",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "eslint": "^8.19.0",

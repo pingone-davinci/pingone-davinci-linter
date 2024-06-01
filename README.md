@@ -1,4 +1,4 @@
-pingone-davinci-linter  ![example workflow](https://github.com/pingone-davinci/pingone-davinci-linter/actions/workflows/tests.yml/badge.svg)
+@pingidentity/dvlint  ![example workflow](https://github.com/pingone-davinci/pingone-davinci-linter/actions/workflows/tests.yml/badge.svg)
 =========
 
 This JavaScript module lints PingOne DaVinci flows (as exported from DaVinci) against a known set of
@@ -9,8 +9,8 @@ More information on the PingOne DaVinci Linter can be found in [Ping Library](ht
 ## Installation
 
 ```bash
-npm install -g git://github.com/pingone-davinci/pingone-davinci-linter.git
-npm install -g git://github.com/pingone-davinci/linter-davinci-base-pack.git
+npm install -g @pingidentity/dvlint                 --registry https://npm.pinglibrary.com
+npm install -g @pingidentity/dvlint-base-rule-pack  --registry https://npm.pinglibrary.com
 
 dvlint -V     # Returns version
 dvlint -r     # Prints out rules from default rule pack
